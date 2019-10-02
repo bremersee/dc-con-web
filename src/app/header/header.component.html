@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">dc-con-web</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown" ngbDropdown>
+        <a id="navbarLinks" class="nav-link" ngbDropdownToggle>
+          Links
+        </a>
+        <div ngbDropdownMenu aria-labelledby="navbarLinks">
+          <a id="navbarLink1" class="dropdown-item"
+             routerLink="/users"
+             ngbDropdownItem>
+            Users
+          </a>
+        </div>
+      </li>
+    </ul>
+    <app-auth></app-auth>
+  </div>
+</nav>
