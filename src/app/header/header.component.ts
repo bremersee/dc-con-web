@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/security/auth.service';
 
 @Component({
@@ -8,13 +8,14 @@ import {AuthService} from '../shared/security/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private oauthService: AuthService) { }
+  constructor(private oauthService: AuthService) {
+  }
 
   ngOnInit() {
   }
 
   get localUser(): boolean {
-    return this.oauthService.hasRole('LOCAL_USER');
+    return this.oauthService.hasAnyRole(['LOCAL_USER', 'ADMIN']);
   }
 
 }
