@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  dcConBaseUrl: 'https://dc.eixe.bremersee.org/peregrinus'
 };
