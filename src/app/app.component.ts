@@ -24,11 +24,11 @@ export class AppComponent {
     oauthService.events.subscribe(e => {
       if (e instanceof OAuthErrorEvent) {
         const path = this.router.url;
-        if (path.startsWith('/basecamp-redirect')) {
-          this.oauthService.initImplicitFlow('/basecamp');
-        } else {
-          console.error(e);
-        }
+        //if (path.startsWith('/basecamp-redirect')) {
+        //  this.oauthService.initImplicitFlow('/basecamp');
+        //} else {
+        //  console.error(e);
+        //}
       } else {
         console.warn(e);
       }
@@ -39,6 +39,7 @@ export class AppComponent {
     // See if the hash fragment contains tokens (when user got redirected back)
     .then(() => oauthService.tryLogin({
       onTokenReceived: (info) => {
+        /*
         console.warn('path: |' + info.state + '|');
         if (info.state && info.state.trim() !== '') {
           const path = info.state.trim();
@@ -48,8 +49,9 @@ export class AppComponent {
             router.navigate(['/' + path]);
           }
         } else {
-          router.navigate(['/basecamp']);
+          router.navigate(['']);
         }
+        */
       },
       onLoginError: (anyObj) => {
         console.error('response: ', anyObj);
@@ -57,13 +59,15 @@ export class AppComponent {
     }))
     // If we're still not logged in yet, try with a silent refresh:
     .then(() => {
+      /*
       if (!oauthService.hasValidAccessToken()) {
         console.warn('Doing silent refresh.');
         return oauthService.silentRefresh();
       } else {
         console.warn('Already logged in:', this.router.url); // current path
-        router.navigate(['/basecamp']);
+        router.navigate(['']);
       }
+      */
     });
 
     console.warn('Setup automatic refresh.');
