@@ -40,3 +40,5 @@ Insert these lines into styles.css:
 
 Install ng-bootstrap `npm install --save @ng-bootstrap/ng-bootstrap`. See [Getting Started](https://ng-bootstrap.github.io/#/getting-started)
 
+Install OpenID client `npm i angular-oauth2-oidc --save`. See [HowTo](https://github.com/manfredsteyer/angular-oauth2-oidc).
+
