@@ -10,13 +10,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './header/auth/auth.component';
 import { OpeningComponent } from './opening/opening.component';
+import { UsersComponent } from './users/users.component';
+import { GroupsComponent } from './groups/groups.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AuthComponent,
-    OpeningComponent
+    OpeningComponent,
+    UsersComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/security/auth.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  get localUser(): boolean {
-    return this.oauthService.hasAnyRole(['LOCAL_USER', 'ADMIN']);
+  get canView(): boolean {
+    return this.oauthService.hasAnyRole(environment.viewRoles);
   }
 
 }

@@ -2,11 +2,11 @@
   <a class="navbar-brand" href="#">dc-con-web</a>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
-      <li *ngIf="localUser" class="nav-item">
-        <a class="nav-link" href="#">Users</a>
+      <li *ngIf="canView" class="nav-item">
+        <a class="nav-link" routerLink="/users">Users</a>
       </li>
-      <li *ngIf="localUser" class="nav-item">
-        <a class="nav-link" href="#">Groups</a>
+      <li *ngIf="canView" class="nav-item">
+        <a class="nav-link" routerLink="/groups">Groups</a>
       </li>
     </ul>
     <app-auth></app-auth>
