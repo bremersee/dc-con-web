@@ -1,1 +1,22 @@
-<p>users works!</p>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">User name</th>
+    <th scope="col">First name</th>
+    <th scope="col">Last name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Enabled</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users | async; let i = index">
+    <td>{{i}}</td>
+    <td>{{user.userName}}</td>
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.enabled}}</td>
+  </tr>
+  </tbody>
+</table>

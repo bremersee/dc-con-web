@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {DomainUser} from '../shared/model/domainUser';
+import {DomainUserService} from '../shared/service/domain-user.service';
 
 @Component({
   selector: 'app-users',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  private users: Observable<Array<DomainUser>>;
+
+  constructor(private domainUserService: DomainUserService) {
+    this.users = domainUserService.getUsers();
+  }
 
   ngOnInit() {
   }

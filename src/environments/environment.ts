@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  dcConBaseUrl: 'https://dc.eixe.bremersee.org/peregrinus',
+  dcConBaseUrl: 'https://dc.eixe.bremersee.org',
   viewRoles: ['LOCAL_USER', 'ADMIN'],
   editRoles: ['ADMIN']
 };
