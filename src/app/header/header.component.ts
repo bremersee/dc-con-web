@@ -19,4 +19,16 @@ export class HeaderComponent implements OnInit {
     return this.oauthService.hasAnyRole(environment.viewRoles);
   }
 
+  get usersParams(): any {
+    return {
+      sort: 'userName'
+    };
+  }
+
+  get groupsParams(): any {
+    return {
+      sort: 'name'
+    };
+  }
+
 }

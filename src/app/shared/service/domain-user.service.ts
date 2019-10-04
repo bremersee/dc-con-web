@@ -88,13 +88,17 @@ export class DomainUserService {
    * Get all domain users.
    *
    * @param sort The sort order.
+   * @param query The query
    */
-  getUsers(sort?: string): Observable<Array<DomainUser>> {
+  getUsers(sort?: string, query?: string): Observable<Array<DomainUser>> {
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
     let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     if (sort !== undefined && sort !== null) {
       queryParameters = queryParameters.set('sort', sort);
+    }
+    if (query !== undefined && query !== null) {
+      queryParameters = queryParameters.set('q', query);
     }
     return this.http.get<Array<DomainUser>>(`${this.baseUrl}/api/users`,
       {

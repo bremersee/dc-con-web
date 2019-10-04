@@ -208,10 +208,13 @@ export class NameServerService {
    *
    * @param zoneName The dns zone name.
    * @param filter The unknown filter.
+   * @param query The query
    * @param observePart set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param isReportProgress flag to report request and response progress.
    */
-  getDnsNodes(zoneName: string, filter?: string, observePart?: 'body', isReportProgress?: boolean): Observable<Array<DnsNode>> {
+  getDnsNodes(
+    zoneName: string, filter?: string, query?: string, observePart?: 'body', isReportProgress?: boolean): Observable<Array<DnsNode>> {
+
     if (zoneName === null || zoneName === undefined) {
       throw new Error('Required parameter zoneName was null or undefined when calling getDnsNodes.');
     }
@@ -220,6 +223,9 @@ export class NameServerService {
     let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     if (filter !== undefined && filter !== null) {
       queryParameters = queryParameters.set('filter', filter);
+    }
+    if (query !== undefined && query !== null) {
+      queryParameters = queryParameters.set('q', query);
     }
     return this.http.get<Array<DnsNode>>(`${this.baseUrl}/api/dns/zones/${encodeURIComponent(String(zoneName))}`,
       {

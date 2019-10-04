@@ -1,22 +1,46 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {DomainUser} from '../shared/model/domainUser';
 import {DomainUserService} from '../shared/service/domain-user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
+
+  // private paramsSubscription;
+
+  private sortOrder: string;
+
+  private query: string;
 
   private users: Observable<Array<DomainUser>>;
 
-  constructor(private domainUserService: DomainUserService) {
-    this.users = domainUserService.getUsers();
+  constructor(private route: ActivatedRoute, private domainUserService: DomainUserService) {
+    /*
+    let sort = this.route.snapshot.queryParamMap.get('sort');
+    if (sort === null || sort === undefined) {
+      sort = '';
+    }
+    this.users = domainUserService.getUsers(sort);
+    */
   }
 
   ngOnInit() {
+    this.route
+    .queryParamMap
+    .subscribe(paramMap => {
+      this.sortOrder = paramMap.get('sort') || '';
+      this.query = paramMap.get('q') || '';
+      this.users = this.domainUserService.getUsers(this.sortOrder, this.query);
+    });
+  }
+
+  ngOnDestroy(): void {
+    // nothing to do
   }
 
 }

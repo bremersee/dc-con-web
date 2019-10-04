@@ -80,13 +80,17 @@ export class DomainGroupService {
    * Get all domain groups.
    *
    * @param sort The sort order.
+   * @param query The query
    */
-  getGroups(sort?: string): Observable<Array<DomainGroup>> {
+  getGroups(sort?: string, query?: string): Observable<Array<DomainGroup>> {
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
     let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     if (sort !== undefined && sort !== null) {
       queryParameters = queryParameters.set('sort', sort);
+    }
+    if (query !== undefined && query !== null) {
+      queryParameters = queryParameters.set('q', query);
     }
     return this.http.get<Array<DomainGroup>>(`${this.baseUrl}/api/groups`,
       {
