@@ -12,6 +12,7 @@ import { AuthComponent } from './header/auth/auth.component';
 import { OpeningComponent } from './opening/opening.component';
 import { UsersComponent } from './users/users.component';
 import { GroupsComponent } from './groups/groups.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { GroupsComponent } from './groups/groups.component';
     AuthComponent,
     OpeningComponent,
     UsersComponent,
-    GroupsComponent
+    GroupsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
