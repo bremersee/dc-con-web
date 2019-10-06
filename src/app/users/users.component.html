@@ -8,6 +8,7 @@
     <th scope="col">Last name</th>
     <th scope="col">Email</th>
     <th scope="col">Enabled</th>
+    <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
@@ -20,7 +21,14 @@
     <td>{{user.firstName}}</td>
     <td>{{user.lastName}}</td>
     <td>{{user.email}}</td>
-    <td>{{user.enabled}}</td>
+    <td>
+      <fa-icon [icon]="enabledIcon(user)"></fa-icon>
+    </td>
+    <td>
+      <a routerLink="/users/{{user.userName}}">
+        <fa-icon [icon]="userEditIcon"></fa-icon>
+      </a>
+    </td>
   </tr>
   </tbody>
 </table>

@@ -3,6 +3,8 @@ import {Observable} from 'rxjs';
 import {DomainUser} from '../shared/model/domainUser';
 import {DomainUserService} from '../shared/service/domain-user.service';
 import {ActivatedRoute} from '@angular/router';
+import {faCheckCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
+import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-users',
@@ -12,6 +14,8 @@ import {ActivatedRoute} from '@angular/router';
 export class UsersComponent implements OnInit, OnDestroy {
 
   // private paramsSubscription;
+
+  private userEditIcon = faUserEdit;
 
   private sortOrder: string;
 
@@ -41,6 +45,14 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // nothing to do
+  }
+
+  enabledIcon(user: DomainUser) {
+    if (user.enabled) {
+      return faCheckCircle;
+    } else {
+      return faTimesCircle;
+    }
   }
 
 }
