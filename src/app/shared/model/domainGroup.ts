@@ -9,6 +9,11 @@ export interface DomainGroup {
   created?: Date;
 
   /**
+   * A description of the domain group.
+   */
+  description?: string;
+
+  /**
    * The distinguished name in the active directory.
    */
   distinguishedName?: string;
@@ -27,4 +32,5 @@ export interface DomainGroup {
    * The name of the domain group.
    */
   name: string;
+
 }

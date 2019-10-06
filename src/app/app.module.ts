@@ -31,7 +31,7 @@ import { UserComponent } from './user/user.component';
     AppRoutingModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://dc.eixe.bremersee.org', 'https://api.dev.bremersee.org'],
+        allowedUrls: ['https://dc.eixe.bremersee.org', 'http://dc.eixe.bremersee.org:8090'],
         sendAccessToken: true
       }
     })

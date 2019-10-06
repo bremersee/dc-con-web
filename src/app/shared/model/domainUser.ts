@@ -14,6 +14,11 @@ export interface DomainUser {
   created?: Date;
 
   /**
+   * A description of the domain group.
+   */
+  description?: string;
+
+  /**
    * The display name.
    */
   displayName?: string;
@@ -102,4 +107,5 @@ export interface DomainUser {
    * The user name of the domain user.
    */
   userName: string;
+
 }
