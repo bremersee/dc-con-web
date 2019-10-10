@@ -21,6 +21,7 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
+              "src/silent-refresh.html",
               "src/assets"
             ],
             "styles": [

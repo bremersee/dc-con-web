@@ -1,13 +1,14 @@
 import {Component} from '@angular/core';
 import {AuthConfig, JwksValidationHandler, OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
+import {environment} from '../environments/environment';
 
 export const authConfig: AuthConfig = {
-  issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',
+  issuer: environment.tokenConfig.issuer,
   redirectUri: window.location.origin,
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-  clientId: 'omnia',
-  scope: 'openid profile email'
+  clientId: environment.tokenConfig.clientId,
+  scope: environment.tokenConfig.scope
 };
 
 @Component({
@@ -24,13 +25,13 @@ export class AppComponent {
     oauthService.events.subscribe(e => {
       if (e instanceof OAuthErrorEvent) {
         const path = this.router.url;
-        //if (path.startsWith('/basecamp-redirect')) {
+        // if (path.startsWith('/basecamp-redirect')) {
         //  this.oauthService.initImplicitFlow('/basecamp');
-        //} else {
+        // } else {
         //  console.error(e);
-        //}
+        // }
       } else {
-        console.warn(e);
+        // console.warn(e);
       }
     });
 

@@ -17,6 +17,7 @@ import {OpeningComponent} from './opening/opening.component';
 import {UsersComponent} from './users/users.component';
 import {GroupsComponent} from './groups/groups.component';
 import {UserComponent} from './user/user.component';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {UserComponent} from './user/user.component';
     FontAwesomeModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://dc.eixe.bremersee.org', 'http://dc.eixe.bremersee.org:8090'],
+        allowedUrls: environment.tokenConfig.allowedUrls,
         sendAccessToken: true
       }
     })
