@@ -14,7 +14,8 @@ export const environment = {
     issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',
     clientId: 'omnia',
     scope: 'openid profile email'
-  }
+  },
+  avatarDefault: 'ROBOHASH'
 };
 
 /*

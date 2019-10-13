@@ -18,6 +18,7 @@ import {UsersComponent} from './users/users.component';
 import {GroupsComponent} from './groups/groups.component';
 import {UserComponent} from './user/user.component';
 import {environment} from '../environments/environment';
+import {TokenizerPipe} from './shared/tokenizer.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {environment} from '../environments/environment';
     OpeningComponent,
     UsersComponent,
     GroupsComponent,
-    UserComponent
+    UserComponent,
+    TokenizerPipe
   ],
   imports: [
     BrowserModule,

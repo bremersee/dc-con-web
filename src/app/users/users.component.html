@@ -1,4 +1,19 @@
-<table class="table">
+<div class="row">
+  <ul class="nav nav-pills mr-auto">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Add user</a>
+    </li>
+  </ul>
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</div>
+
+<table class="table mt-4">
   <thead>
   <tr>
     <th scope="col">#</th>
@@ -15,7 +30,7 @@
   <tr *ngFor="let user of users | async; let i = index">
     <td>{{i}}</td>
     <td>
-      <img width="24" height="24" src="data:image/jpeg;base64,{{user.avatar}}" alt=" ">
+      <img width="24" height="24" [attr.src]="avatarUrl(user, 24) | tokenizer | async" alt=" ">
     </td>
     <td>{{user.userName}}</td>
     <td>{{user.firstName}}</td>

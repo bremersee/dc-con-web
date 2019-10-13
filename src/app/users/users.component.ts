@@ -5,6 +5,7 @@ import {DomainUserService} from '../shared/service/domain-user.service';
 import {ActivatedRoute} from '@angular/router';
 import {faCheckCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-users',
@@ -12,8 +13,6 @@ import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit, OnDestroy {
-
-  // private paramsSubscription;
 
   private userEditIcon = faUserEdit;
 
@@ -24,20 +23,11 @@ export class UsersComponent implements OnInit, OnDestroy {
   private users: Observable<Array<DomainUser>>;
 
   constructor(private route: ActivatedRoute, private domainUserService: DomainUserService) {
-    /*
-    let sort = this.route.snapshot.queryParamMap.get('sort');
-    if (sort === null || sort === undefined) {
-      sort = '';
-    }
-    this.users = domainUserService.getUsers(sort);
-    */
   }
 
   ngOnInit() {
-    this.route
-    .queryParamMap
-    .subscribe(paramMap => {
-      this.sortOrder = paramMap.get('sort') || '';
+    this.route.queryParamMap.subscribe(paramMap => {
+      this.sortOrder = paramMap.get('sort') || 'userName';
       this.query = paramMap.get('q') || '';
       this.users = this.domainUserService.getUsers(this.sortOrder, this.query);
     });
@@ -45,6 +35,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // nothing to do
+  }
+
+  avatarUrl(user: DomainUser, size: number): string {
+    return environment.dcConBaseUrl + '/api/users/' + user.userName + '/avatar?d=' + environment.avatarDefault + '&s=' + size;
   }
 
   enabledIcon(user: DomainUser) {
