@@ -60,15 +60,21 @@ export class DomainGroupService {
    * Get a domain group by name.
    *
    * @param groupName The domain group name.
+   * @param availableMembers The add available members flag (default is false).
    */
-  getGroupByName(groupName: string): Observable<DomainGroup> {
+  getGroupByName(groupName: string, availableMembers?: boolean): Observable<DomainGroup> {
     if (groupName === null || groupName === undefined) {
       throw new Error('Required parameter groupName was null or undefined when calling getGroupByName.');
     }
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
+    let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    if (availableMembers !== undefined && availableMembers !== null) {
+      queryParameters = queryParameters.set('availableMembers', availableMembers ? 'true' : 'false');
+    }
     return this.http.get<DomainGroup>(`${this.baseUrl}/api/groups/${encodeURIComponent(String(groupName))}`, {
-      headers: httpHeaders
+      headers: httpHeaders,
+      params: queryParameters
     })
     .pipe(
       retry(3),

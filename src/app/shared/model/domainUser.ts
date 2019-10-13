@@ -4,9 +4,9 @@
 export interface DomainUser {
 
   /**
-   * The avatar of the domain user.
+   * The available groups.
    */
-  avatar?: string;
+  availableGroups?: Array<string>;
 
   /**
    * The creation date.

@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-4">
+    <img [attr.src]="avatarUrl(user, 300) | tokenizer | async" class="card-img p-4" alt=" ">
+  </div>
+  <div class="col">
+    <h2 *ngIf="user.displayName" class="text-center">
+      {{user.displayName}}
+    </h2>
+    <h2 *ngIf="!user.displayName" class="text-center">{{user.userName}}</h2>
+    <p *ngIf="user.description" class="card-text">{{user.description}}</p>
+    <dl>
+      <dt *ngIf="user.displayName">User name</dt>
+      <dd *ngIf="user.displayName">{{user.userName}}</dd>
+      <dt *ngIf="user.email">Email</dt>
+      <dd *ngIf="user.email">{{user.email}}</dd>
+      <dt *ngIf="user.mobile">Mobile</dt>
+      <dd *ngIf="user.mobile">{{user.mobile}}</dd>
+      <dt *ngIf="user.telephoneNumber">Telephone number</dt>
+      <dd *ngIf="user.telephoneNumber">{{user.telephoneNumber}}</dd>
+    </dl>
+    <div class="font-weight-bold">Details</div>
+    <div class="container p-0">
+      <div *ngIf="user.loginShell" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Login shell</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.loginShell}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.unixHomeDirectory" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Unix home directory</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.unixHomeDirectory}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.homeDirectory" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Windows home directory</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.homeDirectory}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.created" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Created at</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.created}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.modified" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Last modification at</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.modified}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.lastLogon" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Last logon at</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.lastLogon}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.logonCount" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Logon times</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.logonCount}}</small>
+        </div>
+      </div>
+      <div *ngIf="user.passwordLastSet" class="row">
+        <div class="col-md-4 col-sm-5">
+          <small class="text-muted">Last password change at</small>
+        </div>
+        <div class="col-md col-sm">
+          <small class="text-muted">{{user.passwordLastSet}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

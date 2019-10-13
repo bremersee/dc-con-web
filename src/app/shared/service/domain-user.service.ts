@@ -19,6 +19,10 @@ export class DomainUserService {
   constructor(private http: HttpClient) {
   }
 
+  static avatarUrl(user: DomainUser, size: number): string {
+    return environment.dcConBaseUrl + '/api/users/' + user.userName + '/avatar?d=' + environment.avatarDefault + '&s=' + size;
+  }
+
   /**
    * Add domain user.
    *
@@ -67,16 +71,22 @@ export class DomainUserService {
    * Get a domain user by name.
    *
    * @param userName The user name of the domain user.
+   * @param availableGroups The add available groups flag (default is false).
    */
-  getUser(userName: string): Observable<DomainUser> {
+  getUser(userName: string, availableGroups?: boolean): Observable<DomainUser> {
     if (userName === null || userName === undefined) {
       throw new Error('Required parameter userName was null or undefined when calling getUser.');
     }
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
+    let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    if (availableGroups !== undefined && availableGroups !== null) {
+      queryParameters = queryParameters.set('availableGroups', availableGroups ? 'true' : 'false');
+    }
     return this.http.get<DomainUser>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}`,
       {
-        headers: httpHeaders
+        headers: httpHeaders,
+        params: queryParameters
       }
     ).pipe(
       retry(3),
@@ -130,7 +140,7 @@ export class DomainUserService {
     .set('Content-Type', 'application/json');
     let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     if (updateGroups !== undefined && updateGroups !== null) {
-      queryParameters = queryParameters.set('updateGroups', <any> updateGroups);
+      queryParameters = queryParameters.set('updateGroups', updateGroups ? 'true' : 'false');
     }
     return this.http.put<DomainUser>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}`,
       body,

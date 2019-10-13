@@ -19,6 +19,9 @@ import {GroupsComponent} from './groups/groups.component';
 import {UserComponent} from './user/user.component';
 import {environment} from '../environments/environment';
 import {TokenizerPipe} from './shared/tokenizer.pipe';
+import { UserGroupsComponent } from './user/user-groups/user-groups.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import {TokenizerPipe} from './shared/tokenizer.pipe';
     UsersComponent,
     GroupsComponent,
     UserComponent,
-    TokenizerPipe
+    TokenizerPipe,
+    UserGroupsComponent,
+    UserEditComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

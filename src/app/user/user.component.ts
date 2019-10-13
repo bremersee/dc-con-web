@@ -23,15 +23,11 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.userName = paramMap.get('userName') || '';
-      this.user = this.domainUserService.getUser(this.userName);
+      this.user = this.domainUserService.getUser(this.userName, true);
     });
     this.route.queryParamMap.subscribe(queryMap => {
       this.view = queryMap.get('view') || 'profile';
     });
-  }
-
-  avatarUrl(user: DomainUser, size: number): string {
-    return environment.dcConBaseUrl + '/api/users/' + user.userName + '/avatar?d=' + environment.avatarDefault + '&s=' + size;
   }
 
 }
