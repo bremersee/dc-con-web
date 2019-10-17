@@ -1,103 +1,119 @@
 <div class="row">
-  <div class="col-4">
+  <div class="col-md-4">
     <img [attr.src]="avatarUrl(user, 300) | tokenizer | async" class="card-img p-4" alt=" ">
   </div>
   <div class="col">
-    <h2 *ngIf="user.displayName" class="text-center">
+    <h2 *ngIf="user.displayName" class="text-center p-4">
       {{user.displayName}}
     </h2>
-    <h2 *ngIf="!user.displayName" class="text-center">{{user.userName}}</h2>
+    <h2 *ngIf="!user.displayName" class="text-center p-4">{{user.userName}}</h2>
     <p *ngIf="user.description" class="card-text">{{user.description}}</p>
-    <dl>
-      <dt *ngIf="user.displayName">User name</dt>
-      <dd *ngIf="user.displayName">{{user.userName}}</dd>
-      <dt>Enabled</dt>
-      <dd>
+
+    <div class="list-group">
+      <div *ngIf="user.displayName" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">User name</small>
+        </div>
+        <div class="font-weight-bold">{{user.userName}}</div>
+      </div>
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="text-muted font-italic">Enabled</div>
         <label class="switch">
           <input *ngIf="user.enabled" type="checkbox" checked disabled/>
           <input *ngIf="!user.enabled" type="checkbox" disabled/>
           <span class="slider round"></span>
         </label>
-      </dd>
-      <dt *ngIf="user.email">Email</dt>
-      <dd *ngIf="user.email">{{user.email}}</dd>
-      <dt *ngIf="user.mobile">Mobile</dt>
-      <dd *ngIf="user.mobile">{{user.mobile}}</dd>
-      <dt *ngIf="user.telephoneNumber">Telephone number</dt>
-      <dd *ngIf="user.telephoneNumber">{{user.telephoneNumber}}</dd>
-    </dl>
-    <div class="font-weight-bold">Details</div>
-    <div class="container p-0">
-      <div *ngIf="user.loginShell" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Login shell</small>
-        </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.loginShell}}</small>
-        </div>
       </div>
-      <div *ngIf="user.unixHomeDirectory" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Unix home directory</small>
+      <div *ngIf="user.email" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Email</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.unixHomeDirectory}}</small>
-        </div>
+        <div class="font-weight-bold">{{user.email}}</div>
       </div>
-      <div *ngIf="user.homeDirectory" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Windows home directory</small>
+      <div *ngIf="user.mobile" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Mobile phone number</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.homeDirectory}}</small>
-        </div>
+        <div class="font-weight-bold">{{user.mobile}}</div>
       </div>
-      <div *ngIf="user.created" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Created at</small>
+      <div *ngIf="user.telephoneNumber" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Telephone number</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.created}}</small>
-        </div>
+        <div class="font-weight-bold">{{user.telephoneNumber}}</div>
       </div>
-      <div *ngIf="user.modified" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Last modification at</small>
+      <div *ngIf="user.loginShell" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Login shell</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.modified}}</small>
-        </div>
+        <div class="font-weight-bold">{{user.loginShell}}</div>
       </div>
-      <div *ngIf="user.lastLogon" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Last logon at</small>
+      <div *ngIf="user.unixHomeDirectory" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Unix home directory</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.lastLogon}}</small>
-        </div>
+        <div class="font-weight-bold">{{user.unixHomeDirectory}}</div>
       </div>
-      <div *ngIf="user.logonCount" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Logon times</small>
+      <div *ngIf="user.homeDirectory" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Windows home directory</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.logonCount}}</small>
-        </div>
+        <div class="font-weight-bold">{{user.homeDirectory}}</div>
       </div>
-      <div *ngIf="user.passwordLastSet" class="row">
-        <div class="col-md-4 col-sm-5">
-          <small class="text-muted">Last password change at</small>
+      <div *ngIf="user.created" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Created at</small>
         </div>
-        <div class="col-md col-sm">
-          <small class="text-muted">{{user.passwordLastSet}}</small>
+        <div class="font-weight-bold">{{user.created}}</div>
+      </div>
+      <div *ngIf="user.modified" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Last modification at</small>
         </div>
+        <div class="font-weight-bold">{{user.modified}}</div>
+      </div>
+      <div *ngIf="user.lastLogon" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Last logon at</small>
+        </div>
+        <div class="font-weight-bold">{{user.lastLogon}}</div>
+      </div>
+      <div *ngIf="user.logonCount" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Logon times</small>
+        </div>
+        <div class="font-weight-bold">{{user.logonCount}}</div>
+      </div>
+      <div *ngIf="user.passwordLastSet" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Last password change at</small>
+        </div>
+        <div class="font-weight-bold">{{user.passwordLastSet}}</div>
       </div>
     </div>
-    <div class="row">
-      <button type="button" class="btn btn-primary" routerLink="/users/{{user.userName}}"
-              [queryParams]="{view: 'edit'}">Edit
-      </button>
-      <button type="button" class="btn btn-outline-danger">Delete</button>
+
+    <div class="row pt-4 pb-5 ml-2">
+      <div class="flex-column pr-2">
+        <button type="button" class="btn btn-secondary"
+                routerLink="/users" [queryParams]="usersParams">
+          Back
+        </button>
+      </div>
+      <div class="flex-column pr-2">
+        <button type="button" class="btn btn-primary"
+                routerLink="/users/{{user.userName}}" [queryParams]="{view: 'edit'}">
+          Edit
+        </button>
+      </div>
+      <div class="flex-column pr-2">
+        <button type="button" class="btn btn-secondary"
+                routerLink="/users/{{user.userName}}" [queryParams]="{view: 'password'}">
+          Set password
+        </button>
+      </div>
+      <div class="flex-column">
+        <button type="button" class="btn btn-outline-danger">Delete</button>
+      </div>
     </div>
   </div>
 </div>

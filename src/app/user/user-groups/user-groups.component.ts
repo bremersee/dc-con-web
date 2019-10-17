@@ -67,4 +67,10 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
     }
   }
 
+  get usersParams(): any {
+    return {
+      sort: 'userName'
+    };
+  }
+
 }

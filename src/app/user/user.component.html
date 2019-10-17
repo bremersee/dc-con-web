@@ -2,11 +2,11 @@
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" [ngClass]="view === 'profile' || view === 'edit' ? 'active' : ''"
+      <a class="nav-link" [ngClass]="isProfileActive ? 'active' : ''"
          routerLink="/users/{{domainUser.userName}}">Profile</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [ngClass]="view === 'groups' ? 'active' : ''"
+      <a class="nav-link" [ngClass]="isGroupsActive ? 'active' : ''"
          routerLink="/users/{{domainUser.userName}}" [queryParams]="{view: 'groups'}">Groups</a>
     </li>
   </ul>
@@ -15,6 +15,7 @@
   <app-user-edit *ngIf="view === 'edit'" [user]="domainUser" (updatedUser)="onUpdatedUser($event)">
   </app-user-edit>
   <app-user-groups *ngIf="view === 'groups'" [user]="domainUser"></app-user-groups>
+  <app-user-password *ngIf="view === 'password'" [user]="domainUser"></app-user-password>
 
 </ng-container>
 <ng-template #elseBlock>

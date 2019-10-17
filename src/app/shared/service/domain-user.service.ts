@@ -169,9 +169,6 @@ export class DomainUserService {
       {
         headers: httpHeaders
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
   }
 

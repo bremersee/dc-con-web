@@ -33,4 +33,12 @@ export class UserComponent implements OnInit {
     console.warn('Updated user = ' + JSON.stringify(updatedUser));
     this.user = of(updatedUser);
   }
+
+  get isProfileActive() {
+    return this.view === 'profile' || this.view === 'edit' || this.view === 'password';
+  }
+
+  get isGroupsActive() {
+    return this.view === 'groups';
+  }
 }

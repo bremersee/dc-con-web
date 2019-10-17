@@ -23,6 +23,7 @@ import { UserGroupsComponent } from './user/user-groups/user-groups.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import {FormsModule} from '@angular/forms';
+import { UserPasswordComponent } from './user/user-password/user-password.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {FormsModule} from '@angular/forms';
     TokenizerPipe,
     UserGroupsComponent,
     UserEditComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -23,4 +23,10 @@ export class UserProfileComponent implements OnInit {
     return DomainUserService.avatarUrl(user, size);
   }
 
+  get usersParams(): any {
+    return {
+      sort: 'userName'
+    };
+  }
+
 }
