@@ -1,8 +1,8 @@
-<ng-container *ngIf="user | async as domainUser">
+<ng-container *ngIf="user | async as domainUser; else elseBlock">
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" [ngClass]="view === 'profile' ? 'active' : ''"
+      <a class="nav-link" [ngClass]="view === 'profile' || view === 'edit' ? 'active' : ''"
          routerLink="/users/{{domainUser.userName}}">Profile</a>
     </li>
     <li class="nav-item">
@@ -12,8 +12,11 @@
   </ul>
 
   <app-user-profile *ngIf="view === 'profile'" [user]="domainUser"></app-user-profile>
+  <app-user-edit *ngIf="view === 'edit'" [user]="domainUser" (updatedUser)="onUpdatedUser($event)">
+  </app-user-edit>
   <app-user-groups *ngIf="view === 'groups'" [user]="domainUser"></app-user-groups>
 
-
 </ng-container>
-
+<ng-template #elseBlock>
+  Empty user
+</ng-template>

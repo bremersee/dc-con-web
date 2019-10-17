@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DomainUser, DomainUserService} from '../shared/service/domain-user.service';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -23,11 +22,15 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.userName = paramMap.get('userName') || '';
-      this.user = this.domainUserService.getUser(this.userName, true);
+      this.user = this.domainUserService.getUser(this.userName);
     });
     this.route.queryParamMap.subscribe(queryMap => {
       this.view = queryMap.get('view') || 'profile';
     });
   }
 
+  onUpdatedUser(updatedUser: DomainUser) {
+    console.warn('Updated user = ' + JSON.stringify(updatedUser));
+    this.user = of(updatedUser);
+  }
 }

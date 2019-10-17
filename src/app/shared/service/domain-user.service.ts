@@ -71,22 +71,16 @@ export class DomainUserService {
    * Get a domain user by name.
    *
    * @param userName The user name of the domain user.
-   * @param availableGroups The add available groups flag (default is false).
    */
-  getUser(userName: string, availableGroups?: boolean): Observable<DomainUser> {
+  getUser(userName: string): Observable<DomainUser> {
     if (userName === null || userName === undefined) {
       throw new Error('Required parameter userName was null or undefined when calling getUser.');
     }
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
-    let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-    if (availableGroups !== undefined && availableGroups !== null) {
-      queryParameters = queryParameters.set('availableGroups', availableGroups ? 'true' : 'false');
-    }
     return this.http.get<DomainUser>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}`,
       {
-        headers: httpHeaders,
-        params: queryParameters
+        headers: httpHeaders
       }
     ).pipe(
       retry(3),
@@ -126,7 +120,7 @@ export class DomainUserService {
    *
    * @param body The domain user.
    * @param userName The user name of the domain user.
-   * @param updateGroups Specifies whether the groups should also be updated or not.
+   * @param updateGroups Specifies whether the memberships should also be updated or not.
    */
   updateUser(body: DomainUser, userName: string, updateGroups?: boolean): Observable<DomainUser> {
     if (body === null || body === undefined) {

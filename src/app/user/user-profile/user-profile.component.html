@@ -11,6 +11,14 @@
     <dl>
       <dt *ngIf="user.displayName">User name</dt>
       <dd *ngIf="user.displayName">{{user.userName}}</dd>
+      <dt>Enabled</dt>
+      <dd>
+        <label class="switch">
+          <input *ngIf="user.enabled" type="checkbox" checked disabled/>
+          <input *ngIf="!user.enabled" type="checkbox" disabled/>
+          <span class="slider round"></span>
+        </label>
+      </dd>
       <dt *ngIf="user.email">Email</dt>
       <dd *ngIf="user.email">{{user.email}}</dd>
       <dt *ngIf="user.mobile">Mobile</dt>
@@ -84,6 +92,12 @@
           <small class="text-muted">{{user.passwordLastSet}}</small>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary" routerLink="/users/{{user.userName}}"
+              [queryParams]="{view: 'edit'}">Edit
+      </button>
+      <button type="button" class="btn btn-outline-danger">Delete</button>
     </div>
   </div>
 </div>

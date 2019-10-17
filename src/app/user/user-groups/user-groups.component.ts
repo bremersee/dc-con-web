@@ -1,69 +1,69 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DomainUser} from '../../shared/model/domainUser';
 import {DomainUserService} from '../../shared/service/domain-user.service';
-import {Membership} from '../../shared/model/membership';
+import {DomainUserGroup} from '../../shared/model/domainUserGroup';
+import {DomainGroupService} from '../../shared/service/domain-group.service';
+import {Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-groups',
   templateUrl: './user-groups.component.html',
   styleUrls: ['./user-groups.component.css']
 })
-export class UserGroupsComponent implements OnInit {
+export class UserGroupsComponent implements OnInit, OnDestroy {
 
   @Input()
-  private user: DomainUser;
+  user: DomainUser;
 
-  private groups: Array<Membership> = new Array<Membership>();
+  memberships: Array<DomainUserGroup> = new Array<DomainUserGroup>();
 
-  constructor() {
+  membershipSubject: Subject<DomainUserGroup> = new Subject<DomainUserGroup>();
+
+  membershipSubscription: Subscription;
+
+  constructor(private userService: DomainUserService, private groupService: DomainGroupService) {
   }
 
-  ngOnInit() {
-    for (const group of this.user.groups) {
-      const membership: Membership = {
-        name: group,
-        isMember: true
-      };
-      this.groups.push(membership);
-    }
-    for (const group of this.user.availableGroups) {
-      const membership: Membership = {
-        name: group,
-        isMember: false
-      };
-      this.groups.push(membership);
-    }
-    this.groups.sort((g1, g2) => {
-      const n1 = g1.name.toUpperCase();
-      const n2 = g2.name.toUpperCase();
-      if (n1 < n2) {
-        return -1;
-      } else if (n1 > n2) {
-        return 1;
+  ngOnInit(): void {
+    this.membershipSubscription = this.membershipSubject.asObservable().subscribe(membership => this.doToggleMembership(membership));
+    this.groupService.getGroups().subscribe(groups => {
+      for (const domainGroup of groups) {
+        this.memberships.push({
+          group: domainGroup,
+          isMember: this.user.groups.indexOf(domainGroup.name, 0) > -1
+        });
       }
-      return 0;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.membershipSubscription.unsubscribe();
   }
 
   avatarUrl(user: DomainUser, size: number): string {
     return DomainUserService.avatarUrl(user, size);
   }
 
-  toggleMembership(membership: Membership): void {
+  toggleMembership(membership: DomainUserGroup): void {
+    this.membershipSubject.next(membership);
+  }
+
+  doToggleMembership(membership: DomainUserGroup): void {
     if (membership.isMember) {
       membership.isMember = false;
-      this.user.availableGroups.push(membership.name);
-      const index = this.user.groups.indexOf(membership.name);
+      const index = this.user.groups.indexOf(membership.group.name, 0);
       if (index > -1) {
         this.user.groups.splice(index, 1);
+        this.userService.updateUser(this.user, this.user.userName, true)
+        .subscribe(() => {
+        });
       }
     } else {
       membership.isMember = true;
-      this.user.groups.push(membership.name);
-      const index = this.user.availableGroups.indexOf(membership.name);
-      if (index > -1) {
-        this.user.availableGroups.splice(index, 1);
-      }
+      this.user.groups.push(membership.group.name);
+      this.userService.updateUser(this.user, this.user.userName, true)
+      .subscribe(() => {
+      });
     }
   }
 

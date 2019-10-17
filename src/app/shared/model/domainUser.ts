@@ -4,11 +4,6 @@
 export interface DomainUser {
 
   /**
-   * The available groups.
-   */
-  availableGroups?: Array<string>;
-
-  /**
    * The creation date.
    */
   created?: Date;
@@ -44,7 +39,7 @@ export interface DomainUser {
   firstName?: string;
 
   /**
-   * The groups of the domain user.
+   * The memberships of the domain user.
    */
   groups?: Array<string>;
 

@@ -1,1 +1,83 @@
-<p>user-edit works!</p>
+<div class="row">
+  <div class="col-4">
+    <img [attr.src]="avatarUrl(user, 300) | tokenizer | async" class="card-img p-4" alt=" ">
+  </div>
+  <div class="col">
+    <h2 class="text-center">
+      {{displayName}}
+    </h2>
+
+    <form #f="ngForm" (ngSubmit)="save()">
+      <div class="form-group">
+        <label for="userName">User name</label>
+        <input disabled type="text" class="form-control" id="userName" name="userName"
+               aria-describedby="userNameHelp" placeholder="User name"
+               [(ngModel)]="user.userName">
+        <small id="userNameHelp" class="form-text text-muted">The user name of the user.</small>
+      </div>
+
+      <div class="form-check-inline">
+        <label><span class="mr-2">Enabled</span></label>
+        <label class="switch" for="enabled">
+          <input type="checkbox" id="enabled" name="enabled" [(ngModel)]="user.enabled" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName"
+               aria-describedby="firstNameHelp" placeholder="First name"
+               [(ngModel)]="user.firstName">
+        <small id="firstNameHelp" class="form-text text-muted">The first name of the user.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName"
+               aria-describedby="lastNameHelp" placeholder="Last name"
+               [(ngModel)]="user.lastName">
+        <small id="lastNameHelp" class="form-text text-muted">The last name of the user.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" name="email"
+               aria-describedby="emailHelp" placeholder="Enter email"
+               [(ngModel)]="user.email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile phone number</label>
+        <input type="text" class="form-control" id="mobile" name="mobile"
+               aria-describedby="mobileHelp" placeholder="Mobile"
+               [(ngModel)]="user.mobile">
+        <small id="mobileHelp" class="form-text text-muted">The mobile phone number of the user.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="telephoneNumber">The telephone number</label>
+        <input type="text" class="form-control" id="telephoneNumber" name="telephoneNumber"
+               aria-describedby="telephoneNumberHelp" placeholder="Telephone number"
+               [(ngModel)]="user.telephoneNumber">
+        <small id="telephoneNumberHelp" class="form-text text-muted">The telephone number of the user.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control rounded-0" id="description" name="description"
+                  aria-describedby="descriptionHelp"
+                  [(ngModel)]="user.description" ></textarea>
+        <small id="descriptionHelp" class="form-text text-muted">A description of the user.</small>
+      </div>
+
+      <div class="row">
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Save</button>
+        <button type="button" class="btn btn-outline-secondary"
+                routerLink="/users/{{user.userName}}" [queryParams]="{view: 'profile'}">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>

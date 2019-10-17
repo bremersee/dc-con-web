@@ -4,11 +4,6 @@
 export interface DomainGroup {
 
   /**
-   * The available members.
-   */
-  availableMembers?: Array<string>;
-
-  /**
    * The creation date.
    */
   created?: Date;
