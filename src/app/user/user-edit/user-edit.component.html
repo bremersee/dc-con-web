@@ -3,7 +3,7 @@
     <img [attr.src]="avatarUrl(user, 300) | tokenizer | async" class="card-img p-4" alt=" ">
   </div>
   <div class="col">
-    <h2 class="text-center">
+    <h2 class="text-center p-4">
       {{displayName}}
     </h2>
 
@@ -75,11 +75,11 @@
         <small id="descriptionHelp" class="form-text text-muted">A description of the user.</small>
       </div>
 
-      <div class="row">
-        <div class="flex-column">
+      <div class="row pt-4 pb-5 ml-2">
+        <div class="flex-column pr-2">
           <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Save</button>
         </div>
-        <div class="flex-column">
+        <div class="flex-column pr-2">
           <button type="button" class="btn btn-outline-secondary"
                   routerLink="/users/{{user.userName}}" [queryParams]="{view: 'profile'}">
             Cancel

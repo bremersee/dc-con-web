@@ -10,7 +10,7 @@ export const environment = {
   viewRoles: ['LOCAL_USER', 'ADMIN'],
   editRoles: ['ADMIN'],
   tokenConfig: {
-    allowedUrls: ['https://dc.eixe.bremersee.org', 'http://dc.eixe.bremersee.org:8090'],
+    allowedUrls: ['https://dc.eixe.bremersee.org/api', 'http://dc.eixe.bremersee.org:8090/api'],
     issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',
     clientId: 'omnia',
     scope: 'openid profile email'
