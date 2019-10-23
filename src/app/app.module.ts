@@ -22,7 +22,7 @@ import {TokenizerPipe} from './shared/tokenizer.pipe';
 import { UserGroupsComponent } from './user/user-groups/user-groups.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UserPasswordComponent } from './user/user-password/user-password.component';
 
 @NgModule({
@@ -44,6 +44,7 @@ import { UserPasswordComponent } from './user/user-password/user-password.compon
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     AppRoutingModule,
     FontAwesomeModule,

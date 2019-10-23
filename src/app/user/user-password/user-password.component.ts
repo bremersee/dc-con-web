@@ -8,6 +8,9 @@ import {Observable, throwError} from 'rxjs';
 import {RestApiException} from '../../shared/model/restApiException';
 import {DomainService} from '../../shared/service/domain.service';
 import {PasswordComplexity, PasswordInformation} from '../../shared/model/passwordInformation';
+import {AuthService} from '../../shared/security/auth.service';
+import {environment} from '../../../environments/environment';
+import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-user-password',
@@ -21,11 +24,29 @@ export class UserPasswordComponent implements OnInit {
 
   passwordInformation: Observable<PasswordInformation>;
 
-  private password: Password = {
-    value: ''
-  };
+  form: FormGroup;
 
-  constructor(private router: Router, private userService: DomainUserService, private domainService: DomainService) {
+  passwordsEqualValidator: ValidatorFn;
+
+  submitted = false;
+
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private oauthService: AuthService,
+    private userService: DomainUserService,
+    private domainService: DomainService) {
+
+    this.passwordsEqualValidator = (fg: FormGroup) => {
+      const value = fg.get('value').value;
+      const repeatedValue = fg.get('repeatedValue').value;
+      if (value === repeatedValue) {
+        return null;
+      }
+      return {
+        passwordsAreNotEqual: true
+      };
+    };
   }
 
   ngOnInit() {
@@ -36,11 +57,26 @@ export class UserPasswordComponent implements OnInit {
     return DomainUserService.avatarUrl(user, size);
   }
 
+  get isAdmin(): boolean {
+    return this.oauthService.hasAnyRole(environment.editRoles);
+  }
+
+  buildForm(pwdInfo: PasswordInformation) {
+    if (this.form === undefined) {
+      this.form = this.formBuilder.group({
+        previousValue: this.isAdmin ? [''] : ['', Validators.required],
+        value: ['', Validators.pattern(this.passwordPattern(pwdInfo))],
+        repeatedValue: ['', Validators.pattern(this.passwordPattern(pwdInfo))]
+      }, {validators: this.passwordsEqualValidator});
+    }
+    return this.form;
+  }
+
   isComplexPasswordRequired(pwdInfo: PasswordInformation): boolean {
     return PasswordComplexity.OFF !== pwdInfo.passwordComplexity;
   }
 
-  pattern(pwdInfo: PasswordInformation): string {
+  passwordPattern(pwdInfo: PasswordInformation): string {
     if (PasswordComplexity.OFF === pwdInfo.passwordComplexity) {
       return '^(?=.{' + pwdInfo.minimumPasswordLength + ',75}$).*';
     }
@@ -49,8 +85,13 @@ export class UserPasswordComponent implements OnInit {
   }
 
   updatePassword(): void {
+    const password: Password = {
+      value: this.form.get('value').value,
+      previousValue: this.isAdmin ? undefined : this.form.get('previousValue').value
+    };
+    this.submitted = true;
     this.userService
-    .updateUserPassword(this.password, this.user.userName)
+    .updateUserPassword(password, this.user.userName)
     .pipe(
       retry(3),
       catchError(this.handleError)
