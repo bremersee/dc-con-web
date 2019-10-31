@@ -27,17 +27,23 @@ export class DomainUserService {
    * Add domain user.
    *
    * @param body The domain user to add.
+   * @param sendEmail Specifies whether to send an email or not.
    */
-  addUser(body: DomainUser): Observable<DomainUser> {
+  addUser(body: DomainUser, sendEmail?: boolean): Observable<DomainUser> {
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling addUser.');
     }
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json')
     .set('Content-Type', 'application/json');
+    let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    if (sendEmail !== undefined && sendEmail !== null) {
+      queryParameters = queryParameters.set('updateGroups', sendEmail ? 'true' : 'false');
+    }
     return this.http.post<DomainUser>(`${this.baseUrl}/api/users`,
       body,
       {
+        params: queryParameters,
         headers: httpHeaders
       }
     ).pipe(
@@ -153,8 +159,9 @@ export class DomainUserService {
    *
    * @param body The password of the domain user.
    * @param userName The user name of the domain user.
+   * @param sendEmail Specifies whether to send an email or not.
    */
-  updateUserPassword(body: Password, userName: string): Observable<any> {
+  updateUserPassword(body: Password, userName: string, sendEmail?: boolean): Observable<any> {
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling updateUserPassword.');
     }
@@ -164,9 +171,14 @@ export class DomainUserService {
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json')
     .set('Content-Type', 'application/json');
+    let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    if (sendEmail !== undefined && sendEmail !== null) {
+      queryParameters = queryParameters.set('updateGroups', sendEmail ? 'true' : 'false');
+    }
     return this.http.put<any>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}/password`,
       body,
       {
+        params: queryParameters,
         headers: httpHeaders
       }
     );

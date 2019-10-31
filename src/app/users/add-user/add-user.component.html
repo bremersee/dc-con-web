@@ -1,0 +1,124 @@
+<h2 class="text-center p-4">
+  Add user
+</h2>
+<ng-container *ngIf="passwordInformation | async as pwdInfo">
+  <form [formGroup]="buildForm(pwdInfo)" (ngSubmit)="addUser()">
+    <div class="form-group">
+      <label for="userName">User name</label>
+      <input type="text" class="form-control"
+             [ngClass]="form.get('userName').errors ? 'is-invalid' : ''"
+             id="userName" name="userName"
+             aria-describedby="userNameHelp" placeholder="User name"
+             formControlName="userName">
+      <small id="userNameHelp" class="form-text text-muted">Please type in the user name.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      <input type="text" class="form-control"
+             [ngClass]="form.get('firstName').errors ? 'is-invalid' : ''"
+             id="firstName" name="firstName"
+             aria-describedby="firstNameHelp" placeholder="First name"
+             formControlName="firstName">
+      <small id="firstNameHelp" class="form-text text-muted">Please type in the first name.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      <input type="text" class="form-control"
+             [ngClass]="form.get('lastName').errors ? 'is-invalid' : ''"
+             id="lastName" name="lastName"
+             aria-describedby="lastNameHelp" placeholder="Last name"
+             formControlName="lastName">
+      <small id="lastNameHelp" class="form-text text-muted">Please type in the last name.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control"
+             [ngClass]="form.get('email').errors ? 'is-invalid' : ''"
+             id="email" name="email"
+             aria-describedby="emailHelp" placeholder="somebody@example.org"
+             formControlName="email">
+      <small id="emailHelp" class="form-text text-muted">Please type in the email address.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="mobile">Mobile number</label>
+      <input type="text" class="form-control"
+             [ngClass]="form.get('mobile').errors ? 'is-invalid' : ''"
+             id="mobile" name="mobile"
+             aria-describedby="mobileHelp" placeholder="0049"
+             formControlName="mobile">
+      <small id="mobileHelp" class="form-text text-muted">Please type in the mobile number.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="telephoneNumber">Telephone number</label>
+      <input type="text" class="form-control"
+             [ngClass]="form.get('telephoneNumber').errors ? 'is-invalid' : ''"
+             id="telephoneNumber" name="telephoneNumber"
+             aria-describedby="telephoneNumberHelp" placeholder="0049"
+             formControlName="telephoneNumber">
+      <small id="telephoneNumberHelp" class="form-text text-muted">
+        Please type in the telephone number.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control rounded-0" id="description" name="description"
+                aria-describedby="descriptionHelp"
+                formControlName="description"></textarea>
+      <small id="descriptionHelp" class="form-text text-muted">A description of the user.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control"
+             [ngClass]="form.get('password').errors ? 'is-invalid' : ''"
+             id="password" name="password"
+             aria-describedby="passwordHelp" placeholder="New password"
+             formControlName="password">
+      <small id="passwordHelp" class="form-text text-muted">Password.</small>
+    </div>
+    <div class="form-group">
+      <label for="repeatedPassword">Repeat password</label>
+      <input type="repeatedPassword" class="form-control"
+             [ngClass]="form.get('repeatedPassword').errors ? 'is-invalid' : ''"
+             id="repeatedPassword" name="repeatedPassword"
+             aria-describedby="repeatedPasswordHelp" placeholder="Repeat password"
+             formControlName="repeatedPassword">
+      <small id="repeatedPasswordHelp" class="form-text text-muted">Repeat password.</small>
+    </div>
+
+    <div class="form-group">
+      <div class="form-check-inline">
+        <label class="switch" for="enabled">
+          <input type="checkbox" id="enabled" name="enabled" formControlName="enabled"/>
+          <span class="slider round"></span>
+        </label>
+        <label><span class="ml-2">Enabled</span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-check-inline">
+        <label class="switch" for="sendEmail">
+          <input type="checkbox" id="sendEmail" name="sendEmail" formControlName="sendEmail"/>
+          <span class="slider round"></span>
+        </label>
+        <label><span class="ml-2">Send email</span></label>
+      </div>
+    </div>
+
+    <div class="row pt-4 pb-5 ml-2">
+      <div class="flex-column pr-2">
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!form.valid">
+          Add user
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-container>

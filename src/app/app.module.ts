@@ -25,6 +25,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UserPasswordComponent } from './user/user-password/user-password.component';
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     UserEditComponent,
     UserProfileComponent,
     UserPasswordComponent,
-    UserDeleteComponent
+    UserDeleteComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

@@ -5,13 +5,13 @@ import {OpeningComponent} from './opening/opening.component';
 import {UsersComponent} from './users/users.component';
 import {GroupsComponent} from './groups/groups.component';
 import {UserComponent} from './user/user.component';
+import {AddUserComponent} from './users/add-user/add-user.component';
 
 const routes: Routes = [
   {path: 'users', component: UsersComponent, canActivate: [ValidUserGuardService]},
+  {path: 'add-user', component: AddUserComponent, canActivate: [ValidUserGuardService]},
   {path: 'users/:userName', component: UserComponent, canActivate: [ValidUserGuardService]},
   {path: 'groups', component: GroupsComponent, canActivate: [ValidUserGuardService]},
-//  {path: 'basecamp-redirect', component: BasecampRedirectComponent},
-//  {path: 'opening', component: OpeningComponent},
   {path: '', pathMatch: 'full', component: OpeningComponent},
   {path: '**', redirectTo: 'opening'}
 ];

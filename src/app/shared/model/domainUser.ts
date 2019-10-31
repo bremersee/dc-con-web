@@ -4,6 +4,11 @@
 export interface DomainUser {
 
   /**
+   * The type.
+   */
+  _type: string;
+
+  /**
    * The creation date.
    */
   created?: Date;
