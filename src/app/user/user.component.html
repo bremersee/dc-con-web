@@ -9,6 +9,14 @@
       <a class="nav-link" [ngClass]="isGroupsActive ? 'active' : ''"
          routerLink="/users/{{domainUser.userName}}" [queryParams]="{view: 'groups'}">Groups</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="isPasswordActive ? 'active' : ''"
+         routerLink="/users/{{domainUser.userName}}" [queryParams]="{view: 'password'}">Password</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="isDeleteActive ? 'active' : ''"
+         routerLink="/users/{{domainUser.userName}}" [queryParams]="{view: 'delete'}">Delete</a>
+    </li>
   </ul>
 
   <app-user-profile *ngIf="view === 'profile'" [user]="domainUser"></app-user-profile>
@@ -16,6 +24,7 @@
   </app-user-edit>
   <app-user-groups *ngIf="view === 'groups'" [user]="domainUser"></app-user-groups>
   <app-user-password *ngIf="view === 'password'" [user]="domainUser"></app-user-password>
+  <app-user-delete *ngIf="view === 'delete'" [user]="domainUser"></app-user-delete>
 
 </ng-container>
 <ng-template #elseBlock>

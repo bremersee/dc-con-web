@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-4">
+    <img [attr.src]="avatarUrl(user, 300) | tokenizer | async" class="card-img p-4" alt=" ">
+  </div>
+  <div class="col">
+    <h2 *ngIf="user.displayName" class="text-center p-4">
+      {{user.displayName}}
+    </h2>
+    <h2 *ngIf="!user.displayName" class="text-center p-4">{{user.userName}}</h2>
+    <div>
+      <p class="alert-danger">
+        This action cannot be undone. This will permanently delete the user
+        <span class="font-weight-bold">{{user.userName}}</span>.
+      </p>
+      <form [formGroup]="form" (ngSubmit)="delete()">
+        <div class="form-group">
+          <label for="userName">Please type in the user name of this user to confirm.</label>
+          <input type="text" class="form-control"
+                 [ngClass]="form.errors && form.get('userName').value !== '' ? 'is-invalid' : ''"
+                 id="userName" name="userName" placeholder="User name"
+                 formControlName="userName">
+          <small *ngIf="form.errors && form.get('userName').value !== ''"
+                 class="form-text text-danger">
+            The user names does not match.
+          </small>
+        </div>
+        <div class="row pt-4 pb-5 ml-2">
+          <div class="flex-column pr-2">
+            <button type="submit" class="btn btn-danger"
+                    [disabled]="!form.valid || form.get('userName').value === ''">
+              Delete user
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

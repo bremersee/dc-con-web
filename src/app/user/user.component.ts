@@ -35,10 +35,19 @@ export class UserComponent implements OnInit {
   }
 
   get isProfileActive() {
-    return this.view === 'profile' || this.view === 'edit' || this.view === 'password';
+    return this.view === 'profile' || this.view === 'edit';
   }
 
   get isGroupsActive() {
     return this.view === 'groups';
   }
+
+  get isPasswordActive() {
+    return this.view === 'password';
+  }
+
+  get isDeleteActive() {
+    return this.view === 'delete';
+  }
+
 }
