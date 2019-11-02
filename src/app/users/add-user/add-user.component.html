@@ -80,16 +80,30 @@
              id="password" name="password"
              aria-describedby="passwordHelp" placeholder="New password"
              formControlName="password">
-      <small id="passwordHelp" class="form-text text-muted">Password.</small>
+      <small id="passwordHelp" class="form-text text-muted">
+        The password should contain at least {{pwdInfo.minimumPasswordLength}} symbols.
+        <span *ngIf="isComplexPasswordRequired(pwdInfo)">
+          3 types of symbols must be used in the password: numbers (0–9), uppercase letters,
+          lowercase letters and special characters ($, #, %, etc.).
+        </span>
+      </small>
+      <small *ngIf="form.get('password').errors"
+             class="form-text text-danger">
+        The password does not satisfy complexity restrictions.
+      </small>
     </div>
     <div class="form-group">
       <label for="repeatedPassword">Repeat password</label>
-      <input type="repeatedPassword" class="form-control"
+      <input type="password" class="form-control"
              [ngClass]="form.get('repeatedPassword').errors ? 'is-invalid' : ''"
              id="repeatedPassword" name="repeatedPassword"
              aria-describedby="repeatedPasswordHelp" placeholder="Repeat password"
              formControlName="repeatedPassword">
       <small id="repeatedPasswordHelp" class="form-text text-muted">Repeat password.</small>
+      <small *ngIf="form.errors && form.errors.passwordsAreNotEqual"
+             class="form-text text-danger">
+        Passwords are not equal.
+      </small>
     </div>
 
     <div class="form-group">

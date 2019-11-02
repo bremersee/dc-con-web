@@ -1,9 +1,9 @@
 /**
  * The password information of the domain controller.
  */
-import {PasswordComplexity} from './passwordComplexity';
+import {PasswordComplexity} from './password-complexity';
 
-export {PasswordComplexity} from './passwordComplexity';
+export {PasswordComplexity} from './password-complexity';
 
 export interface PasswordInformation {
 

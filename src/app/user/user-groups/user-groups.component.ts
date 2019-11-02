@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DomainUser} from '../../shared/model/domainUser';
+import {DomainUser} from '../../shared/model/domain-user';
 import {DomainUserService} from '../../shared/service/domain-user.service';
-import {DomainUserGroup} from '../../shared/model/domainUserGroup';
+import {DomainUserGroup} from '../../shared/model/domain-user-group';
 import {DomainGroupService} from '../../shared/service/domain-group.service';
 import {Subject, Subscription} from 'rxjs';
 

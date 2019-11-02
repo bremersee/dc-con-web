@@ -1,17 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DomainUser} from '../../shared/model/domainUser';
+import {DomainUser} from '../../shared/model/domain-user';
 import {DomainUserService, Password} from '../../shared/service/domain-user.service';
 import {Router} from '@angular/router';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {RestApiException} from '../../shared/model/restApiException';
+import {RestApiException} from '../../shared/model/rest-api-exception';
 import {DomainService} from '../../shared/service/domain.service';
-import {PasswordComplexity, PasswordInformation} from '../../shared/model/passwordInformation';
+import {PasswordComplexity, PasswordInformation} from '../../shared/model/password-information';
 import {AuthService} from '../../shared/security/auth.service';
 import {environment} from '../../../environments/environment';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {SubmitValidation} from './submitValidation';
+import {NotificationService} from '../../shared/service/notification.service';
 
 @Component({
   selector: 'app-user-password',
@@ -61,6 +62,7 @@ export class UserPasswordComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private oauthService: AuthService,
+    private notificationService: NotificationService,
     private userService: DomainUserService,
     private domainService: DomainService) {
 
@@ -129,7 +131,8 @@ export class UserPasswordComponent implements OnInit {
     )
     .subscribe(response => {
       if (response === null) {
-        this.router.navigate(['/users/' + this.user.userName]);
+        this.router.navigate(['/users/' + this.user.userName])
+        .then(() => this.notificationService.sendSuccessMessage('Password successfully changed.'));
       } else {
         const tmp = response as SubmitValidation;
         this.submitValidation.internalServerError = tmp.internalServerError;

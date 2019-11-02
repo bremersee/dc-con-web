@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DomainUser} from '../../shared/model/domainUser';
+import {DomainUser} from '../../shared/model/domain-user';
 import {environment} from '../../../environments/environment';
 import {DomainUserService} from '../../shared/service/domain-user.service';
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons';

@@ -1,19 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
-import {Observable, throwError} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {CustomHttpUrlEncodingCodec} from '../encoder';
-import {DomainUser} from '../model/domainUser';
+import {DomainUser} from '../model/domain-user';
 import {Password} from '../model/password';
+import {ApiException} from '../../error/api-exception';
 
-export {DomainUser} from '../model/domainUser';
+export {DomainUser} from '../model/domain-user';
 export {Password} from '../model/password';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DomainUserService {
+
   private baseUrl = environment.dcConBaseUrl;
 
   constructor(private http: HttpClient) {
@@ -29,7 +31,7 @@ export class DomainUserService {
    * @param body The domain user to add.
    * @param sendEmail Specifies whether to send an email or not.
    */
-  addUser(body: DomainUser, sendEmail?: boolean): Observable<DomainUser> {
+  addUser(body: DomainUser, sendEmail?: boolean): Observable<DomainUser | ApiException> {
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling addUser.');
     }
@@ -47,8 +49,15 @@ export class DomainUserService {
         headers: httpHeaders
       }
     ).pipe(
-      retry(3),
-      catchError(this.handleError)
+      catchError(err => {
+        if (err.status === 409) {
+          return of(new ApiException(err, ApiException.ALREADY_EXISTS));
+        }
+        if (err.status === 400 && err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
+          return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
+        }
+        return throwError(err);
+      })
     );
   }
 
@@ -88,9 +97,6 @@ export class DomainUserService {
       {
         headers: httpHeaders
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
   }
 

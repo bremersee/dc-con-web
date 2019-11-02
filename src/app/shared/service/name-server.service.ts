@@ -4,13 +4,13 @@ import {catchError, retry} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {CustomHttpUrlEncodingCodec} from '../encoder';
-import {DhcpLease} from '../model/dhcpLease';
-import {DnsNode} from '../model/dnsNode';
-import {DnsZone} from '../model/dnsZone';
+import {DhcpLease} from '../model/dhcp-lease';
+import {DnsNode} from '../model/dns-node';
+import {DnsZone} from '../model/dns-zone';
 
-export {DhcpLease} from '../model/dhcpLease';
-export {DnsNode} from '../model/dnsNode';
-export {DnsZone} from '../model/dnsZone';
+export {DhcpLease} from '../model/dhcp-lease';
+export {DnsNode} from '../model/dns-node';
+export {DnsZone} from '../model/dns-zone';
 
 @Injectable({
   providedIn: 'root'

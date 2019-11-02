@@ -1,6 +1,6 @@
-import {DhcpLease} from './dhcpLease';
+import {DhcpLease} from './dhcp-lease';
 
-export {DhcpLease} from './dhcpLease';
+export {DhcpLease} from './dhcp-lease';
 
 /**
  * DNS Record

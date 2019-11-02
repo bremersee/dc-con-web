@@ -4,9 +4,9 @@ import {catchError, retry} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {CustomHttpUrlEncodingCodec} from '../encoder';
-import {DomainGroup} from '../model/domainGroup';
+import {DomainGroup} from '../model/domain-group';
 
-export {DomainGroup} from '../model/domainGroup';
+export {DomainGroup} from '../model/domain-group';
 
 @Injectable({
   providedIn: 'root'

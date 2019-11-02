@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {DomainUser} from '../shared/model/domainUser';
+import {DomainUser} from '../shared/model/domain-user';
 import {DomainUserService} from '../shared/service/domain-user.service';
 import {ActivatedRoute} from '@angular/router';
 import {faCheckCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';

@@ -1,8 +1,8 @@
 import {Handler} from './handler';
-import {StackTraceItem} from './stackTraceItem';
+import {StackTraceItem} from './stack-trace-item';
 
 export {Handler} from './handler';
-export {StackTraceItem} from './stackTraceItem';
+export {StackTraceItem} from './stack-trace-item';
 
 /**
  * The serialized exception.

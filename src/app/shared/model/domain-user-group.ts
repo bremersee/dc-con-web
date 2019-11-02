@@ -1,6 +1,6 @@
-import {DomainGroup} from './domainGroup';
+import {DomainGroup} from './domain-group';
 
-export {DomainGroup} from './domainGroup';
+export {DomainGroup} from './domain-group';
 
 /**
  * The type domain user group.

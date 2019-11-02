@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {AccessTokenClaims} from '../model/accessTokenClaims';
+import {AccessTokenClaims} from '../model/access-token-claims';
 
 @Injectable({
   providedIn: 'root'

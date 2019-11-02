@@ -6,6 +6,7 @@ import {AuthConfig} from 'angular-oauth2-oidc';
 
 export const environment = {
   production: false,
+  retry: 2,
   dcConBaseUrl: 'https://dc.eixe.bremersee.org',
   viewRoles: ['LOCAL_USER', 'ADMIN'],
   editRoles: ['ADMIN'],

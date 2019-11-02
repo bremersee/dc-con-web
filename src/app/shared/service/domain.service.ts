@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {PasswordInformation} from '../model/passwordInformation';
+import {PasswordInformation} from '../model/password-information';
 
 @Injectable({
   providedIn: 'root'

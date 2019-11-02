@@ -1,6 +1,6 @@
-import {DnsRecord} from './dnsRecord';
+import {DnsRecord} from './dns-record';
 
-export {DnsRecord} from './dnsRecord';
+export {DnsRecord} from './dns-record';
 
 /**
  * DNS node

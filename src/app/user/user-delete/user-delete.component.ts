@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DomainUser} from '../../shared/model/domainUser';
+import {DomainUser} from '../../shared/model/domain-user';
 import {DomainUserService} from '../../shared/service/domain-user.service';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {Router} from '@angular/router';

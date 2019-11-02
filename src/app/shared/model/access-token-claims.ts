@@ -1,6 +1,6 @@
-import {RealmAccess} from './realmAccess';
+import {RealmAccess} from './realm-access';
 
-export {RealmAccess} from './realmAccess';
+export {RealmAccess} from './realm-access';
 
 /**
  * Claims of the access token.

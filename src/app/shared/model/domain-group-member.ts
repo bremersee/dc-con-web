@@ -1,6 +1,6 @@
-import {DomainUser} from './domainUser';
+import {DomainUser} from './domain-user';
 
-export {DomainUser} from './domainUser';
+export {DomainUser} from './domain-user';
 
 /**
  * The type domain group member.

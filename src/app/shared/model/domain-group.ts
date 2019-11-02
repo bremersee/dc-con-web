@@ -4,6 +4,11 @@
 export interface DomainGroup {
 
   /**
+   * The type.
+   */
+  _type: string;
+
+  /**
    * The creation date.
    */
   created?: Date;

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -19,13 +19,16 @@ import {GroupsComponent} from './groups/groups.component';
 import {UserComponent} from './user/user.component';
 import {environment} from '../environments/environment';
 import {TokenizerPipe} from './shared/tokenizer.pipe';
-import { UserGroupsComponent } from './user/user-groups/user-groups.component';
-import { UserEditComponent } from './user/user-edit/user-edit.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import {UserGroupsComponent} from './user/user-groups/user-groups.component';
+import {UserEditComponent} from './user/user-edit/user-edit.component';
+import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { UserPasswordComponent } from './user/user-password/user-password.component';
-import { UserDeleteComponent } from './user/user-delete/user-delete.component';
-import { AddUserComponent } from './users/add-user/add-user.component';
+import {UserPasswordComponent} from './user/user-password/user-password.component';
+import {UserDeleteComponent} from './user/user-delete/user-delete.component';
+import {AddUserComponent} from './users/add-user/add-user.component';
+import {NotificationComponent} from './notification/notification.component';
+import {HttpErrorInterceptor} from './error/http-error-interceptor';
+import {GlobalErrorHandler} from './error/global-error-handler';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { AddUserComponent } from './users/add-user/add-user.component';
     UserProfileComponent,
     UserPasswordComponent,
     UserDeleteComponent,
-    AddUserComponent
+    AddUserComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,17 @@ import { AddUserComponent } from './users/add-user/add-user.component';
       }
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
