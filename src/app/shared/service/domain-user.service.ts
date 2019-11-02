@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, retry} from 'rxjs/operators';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 import {Observable, of, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {CustomHttpUrlEncodingCodec} from '../encoder';
@@ -76,9 +76,6 @@ export class DomainUserService {
       {
         headers: httpHeaders
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
   }
 
@@ -121,9 +118,6 @@ export class DomainUserService {
         params: queryParameters,
         headers: httpHeaders
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
   }
 
@@ -154,9 +148,6 @@ export class DomainUserService {
         params: queryParameters,
         headers: httpHeaders
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
   }
 
@@ -167,7 +158,7 @@ export class DomainUserService {
    * @param userName The user name of the domain user.
    * @param sendEmail Specifies whether to send an email or not.
    */
-  updateUserPassword(body: Password, userName: string, sendEmail?: boolean): Observable<any> {
+  updateUserPassword(body: Password, userName: string, sendEmail?: boolean): Observable<any | ApiException> {
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling updateUserPassword.');
     }
@@ -187,6 +178,16 @@ export class DomainUserService {
         params: queryParameters,
         headers: httpHeaders
       }
+    ).pipe(
+      catchError(err => {
+        if (err.error && err.error.errorCode === ApiException.PASSWORD_NOT_MATCH) {
+          return of(new ApiException(err, ApiException.PASSWORD_NOT_MATCH));
+        } else if (err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
+          return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
+        } else {
+          return throwError(err);
+        }
+      })
     );
   }
 
@@ -205,26 +206,7 @@ export class DomainUserService {
       {
         headers: httpHeaders
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
   }
 
 }

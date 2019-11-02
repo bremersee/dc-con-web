@@ -2,17 +2,14 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DomainUser} from '../../shared/model/domain-user';
 import {DomainUserService, Password} from '../../shared/service/domain-user.service';
 import {Router} from '@angular/router';
-import {catchError, retry} from 'rxjs/operators';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {RestApiException} from '../../shared/model/rest-api-exception';
+import {Observable} from 'rxjs';
 import {DomainService} from '../../shared/service/domain.service';
 import {PasswordComplexity, PasswordInformation} from '../../shared/model/password-information';
 import {AuthService} from '../../shared/security/auth.service';
 import {environment} from '../../../environments/environment';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {SubmitValidation} from './submitValidation';
 import {NotificationService} from '../../shared/service/notification.service';
+import {ApiException} from '../../error/api-exception';
 
 @Component({
   selector: 'app-user-password',
@@ -28,35 +25,9 @@ export class UserPasswordComponent implements OnInit {
 
   form: FormGroup;
 
-  submitValidation: SubmitValidation;
+  submitErrorCode: string;
 
   passwordsEqualValidator: ValidatorFn;
-
-  private static handleError(error: HttpErrorResponse) {
-    const exception: RestApiException = error.error;
-    if (exception.errorCode === 'password_does_not_match') {
-      console.warn('Password does not match.');
-      return of<SubmitValidation>({
-        loginFailed: true,
-        passwordComplexityFailed: false,
-        internalServerError: false
-      });
-    } else if (exception.errorCode === 'check_password_restrictions') {
-      console.warn('New password does not satisfy complexity restrictions.');
-      return of<SubmitValidation>({
-        loginFailed: false,
-        passwordComplexityFailed: true,
-        internalServerError: false
-      });
-    } else {
-      console.warn('Something bad happened.');
-      return of<SubmitValidation>({
-        loginFailed: false,
-        passwordComplexityFailed: false,
-        internalServerError: true
-      });
-    }
-  }
 
   constructor(
     private router: Router,
@@ -79,11 +50,6 @@ export class UserPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.submitValidation = {
-      loginFailed: false,
-      passwordComplexityFailed: false,
-      internalServerError: false
-    };
     this.passwordInformation = this.domainService.getPasswordInformation();
   }
 
@@ -118,6 +84,14 @@ export class UserPasswordComponent implements OnInit {
       + '|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*';
   }
 
+  passwordDoesNotMatch(): boolean {
+    return this.submitErrorCode === ApiException.PASSWORD_NOT_MATCH;
+  }
+
+  checkPasswordComplexity(): boolean {
+    return this.submitErrorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS;
+  }
+
   updatePassword(): void {
     const password: Password = {
       value: this.form.get('value').value,
@@ -125,22 +99,12 @@ export class UserPasswordComponent implements OnInit {
     };
     this.userService
     .updateUserPassword(password, this.user.userName)
-    .pipe(
-      retry(3),
-      catchError(UserPasswordComponent.handleError)
-    )
     .subscribe(response => {
-      if (response === null) {
+      if (response !== null && response instanceof ApiException) {
+        this.submitErrorCode = (response as ApiException).hint;
+      } else {
         this.router.navigate(['/users/' + this.user.userName])
         .then(() => this.notificationService.sendSuccessMessage('Password successfully changed.'));
-      } else {
-        const tmp = response as SubmitValidation;
-        this.submitValidation.internalServerError = tmp.internalServerError;
-        this.submitValidation.passwordComplexityFailed = tmp.passwordComplexityFailed;
-        this.submitValidation.loginFailed = tmp.loginFailed;
-        if (!tmp.passwordComplexityFailed) {
-          this.form.reset();
-        }
       }
     });
   }

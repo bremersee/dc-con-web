@@ -11,6 +11,10 @@
              aria-describedby="userNameHelp" placeholder="User name"
              formControlName="userName">
       <small id="userNameHelp" class="form-text text-muted">Please type in the user name.</small>
+      <small *ngIf="userNameExists() || (form.get('userName').errors && form.get('userName').errors.exists)"
+             class="form-text text-danger">
+        User name already exists.
+      </small>
     </div>
 
     <div class="form-group">
@@ -87,7 +91,7 @@
           lowercase letters and special characters ($, #, %, etc.).
         </span>
       </small>
-      <small *ngIf="form.get('password').errors"
+      <small *ngIf="checkPasswordComplexity() || form.get('password').errors"
              class="form-text text-danger">
         The password does not satisfy complexity restrictions.
       </small>

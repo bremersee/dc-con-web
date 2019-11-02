@@ -8,15 +8,17 @@ export class ApiException {
 
   static CHECK_PASSWORD_RESTRICTIONS = 'check_password_restrictions';
 
-  constructor(error?: HttpErrorResponse, hint?: string) {
+  static PASSWORD_NOT_MATCH = 'password_does_not_match';
+
+  constructor(private err?: HttpErrorResponse, private errHint?: string) {
   }
 
   get error(): HttpErrorResponse {
-    return this.error;
+    return this.err;
   }
 
   get hint(): string {
-    return this.hint;
+    return this.errHint;
   }
 
 }
