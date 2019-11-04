@@ -46,10 +46,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onNewErrorMessage(message: string) {
-    console.warn('new error message: ' + message);
     if (message !== undefined && message !== null && message !== '') {
-      this.errorMessages.push(message);
-      console.warn('Length = ' + this.errorMessages.length);
+      let exists = false;
+      for (const msg of this.errorMessages) {
+        if (msg === message) {
+          exists = true;
+          break;
+        }
+      }
+      if (!exists) {
+        this.errorMessages.push(message);
+      }
     }
   }
 

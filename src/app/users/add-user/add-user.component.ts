@@ -5,11 +5,9 @@ import {DomainUser, DomainUserService} from '../../shared/service/domain-user.se
 import {DomainService} from '../../shared/service/domain.service';
 import {Observable, of} from 'rxjs';
 import {PasswordComplexity, PasswordInformation} from '../../shared/model/password-information';
-import {ApiException} from '../../error/api-exception';
 import {NotificationService} from '../../shared/service/notification.service';
 import {DomainGroupService} from '../../shared/service/domain-group.service';
-import {debounceTime, map, switchMap} from 'rxjs/operators';
-import {existingUserNameValidator} from './username-exists-validator';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-user',
@@ -21,8 +19,6 @@ export class AddUserComponent implements OnInit {
   passwordInformation: Observable<PasswordInformation>;
 
   form: FormGroup;
-
-  submitErrorCode: string;
 
   userNameExistsValidator: AsyncValidatorFn;
 
@@ -39,12 +35,9 @@ export class AddUserComponent implements OnInit {
     this.userNameExistsValidator = (control: AbstractControl) => {
       const value = control.value;
       if (value === undefined || value === null || value === '') {
-        if (this.userNameExists()) {
-          this.submitErrorCode = undefined;
-        }
         return of(null);
       }
-      return this.userService.userExists(value).pipe(map(response => {
+      return this.userService.isUserNameInUse(value).pipe(map(response => {
         return response ? {exists: true} : null;
       }));
     };
@@ -82,17 +75,6 @@ export class AddUserComponent implements OnInit {
       }, {
         validators: [this.passwordsEqualValidator]
       });
-
-      /*
-      this.form.valueChanges
-      .pipe(debounceTime(500),
-        switchMap((value: string) => {
-          return this.userService.userExists(value);
-        })).subscribe((isNameExists: boolean) => {
-        this.submitErrorCode = isNameExists ? ApiException.ALREADY_EXISTS : undefined;
-      });
-
-       */
     }
     return this.form;
   }
@@ -107,14 +89,6 @@ export class AddUserComponent implements OnInit {
 
   isComplexPasswordRequired(pwdInfo: PasswordInformation): boolean {
     return PasswordComplexity.OFF !== pwdInfo.passwordComplexity;
-  }
-
-  userNameExists() {
-    return this.submitErrorCode === ApiException.ALREADY_EXISTS;
-  }
-
-  checkPasswordComplexity(): boolean {
-    return this.submitErrorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS;
   }
 
   addUser(): void {
@@ -132,13 +106,8 @@ export class AddUserComponent implements OnInit {
     };
     this.userService.addUser(domainUser, this.form.get('sendEmail').value)
     .subscribe(response => {
-      if (response instanceof ApiException) {
-        const ex = response as ApiException;
-        this.submitErrorCode = ex.hint;
-      } else {
-        this.router.navigate(['/users'])
-        .then(() => this.notificationService.sendSuccessMessage('User successfully added.'));
-      }
+      this.router.navigate(['/users'])
+      .then(() => this.notificationService.sendSuccessMessage('User successfully added.'));
     });
   }
 

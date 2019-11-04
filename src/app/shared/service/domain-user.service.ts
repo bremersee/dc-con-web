@@ -48,16 +48,16 @@ export class DomainUserService {
         params: queryParameters,
         headers: httpHeaders
       }
-    ).pipe(
-      catchError(err => {
-        if (err.status === 409) {
-          return of(new ApiException(err, ApiException.ALREADY_EXISTS));
-        }
-        if (err.status === 400 && err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
-          return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
-        }
-        return throwError(err);
-      })
+    // ).pipe(
+    //   catchError(err => {
+    //     if (err.status === 409) {
+    //       return of(new ApiException(err, ApiException.ALREADY_EXISTS));
+    //     }
+    //     if (err.status === 400 && err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
+    //       return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
+    //     }
+    //     return throwError(err);
+    //   })
     );
   }
 
@@ -182,8 +182,8 @@ export class DomainUserService {
       catchError(err => {
         if (err.error && err.error.errorCode === ApiException.PASSWORD_NOT_MATCH) {
           return of(new ApiException(err, ApiException.PASSWORD_NOT_MATCH));
-        } else if (err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
-          return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
+        // } else if (err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
+        //   return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
         } else {
           return throwError(err);
         }
@@ -203,6 +203,24 @@ export class DomainUserService {
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
     return this.http.get<boolean>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}/exists`,
+      {
+        headers: httpHeaders
+      }
+    );
+  }
+
+  /**
+   * Checks whether a group name is in use or not.
+   *
+   * @param userName The user name to check.
+   */
+  isUserNameInUse(userName: string): Observable<boolean> {
+    if (userName === null || userName === undefined) {
+      throw new Error('Required parameter userName was null or undefined when calling isUserNameInUse.');
+    }
+    const httpHeaders = new HttpHeaders()
+    .set('Accept', 'application/json');
+    return this.http.get<boolean>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}/in-use`,
       {
         headers: httpHeaders
       }

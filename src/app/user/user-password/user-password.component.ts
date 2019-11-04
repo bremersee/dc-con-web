@@ -88,11 +88,8 @@ export class UserPasswordComponent implements OnInit {
     return this.submitErrorCode === ApiException.PASSWORD_NOT_MATCH;
   }
 
-  checkPasswordComplexity(): boolean {
-    return this.submitErrorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS;
-  }
-
   updatePassword(): void {
+    this.submitErrorCode = undefined;
     const password: Password = {
       value: this.form.get('value').value,
       previousValue: this.isAdmin ? undefined : this.form.get('previousValue').value

@@ -106,6 +106,22 @@ export class DomainGroupService {
   }
 
   /**
+   * Checks whether a group name is in use or not.
+   *
+   * @param groupName The group name to check.
+   */
+  isGroupNameInUse(groupName: string): Observable<boolean> {
+    if (groupName === null || groupName === undefined) {
+      throw new Error('Required parameter groupName was null or undefined when calling groupExists.');
+    }
+    const httpHeaders = new HttpHeaders()
+    .set('Accept', 'application/json');
+    return this.http.get<boolean>(`${this.baseUrl}/api/groups/${encodeURIComponent(String(groupName))}/in-use`, {
+      headers: httpHeaders
+    });
+  }
+
+  /**
    * Updates a domain group.
    *
    * @param body The domain group.
