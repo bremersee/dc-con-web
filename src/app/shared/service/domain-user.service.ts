@@ -30,8 +30,9 @@ export class DomainUserService {
    *
    * @param body The domain user to add.
    * @param sendEmail Specifies whether to send an email or not.
+   * @param language The two letter language code of the email.
    */
-  addUser(body: DomainUser, sendEmail?: boolean): Observable<DomainUser | ApiException> {
+  addUser(body: DomainUser, sendEmail?: boolean, language?: string): Observable<DomainUser | ApiException> {
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling addUser.');
     }
@@ -40,7 +41,12 @@ export class DomainUserService {
     .set('Content-Type', 'application/json');
     let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     if (sendEmail !== undefined && sendEmail !== null) {
-      queryParameters = queryParameters.set('updateGroups', sendEmail ? 'true' : 'false');
+      queryParameters = queryParameters.set('email', sendEmail ? 'true' : 'false');
+    }
+    if (language !== undefined && language !== null) {
+      queryParameters = queryParameters.set('lang', language.toUpperCase());
+    } else {
+      queryParameters = queryParameters.set('lang', 'en');
     }
     return this.http.post<DomainUser>(`${this.baseUrl}/api/users`,
       body,
@@ -48,16 +54,16 @@ export class DomainUserService {
         params: queryParameters,
         headers: httpHeaders
       }
-    // ).pipe(
-    //   catchError(err => {
-    //     if (err.status === 409) {
-    //       return of(new ApiException(err, ApiException.ALREADY_EXISTS));
-    //     }
-    //     if (err.status === 400 && err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
-    //       return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
-    //     }
-    //     return throwError(err);
-    //   })
+      // ).pipe(
+      //   catchError(err => {
+      //     if (err.status === 409) {
+      //       return of(new ApiException(err, ApiException.ALREADY_EXISTS));
+      //     }
+      //     if (err.status === 400 && err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
+      //       return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
+      //     }
+      //     return throwError(err);
+      //   })
     );
   }
 
@@ -157,8 +163,9 @@ export class DomainUserService {
    * @param body The password of the domain user.
    * @param userName The user name of the domain user.
    * @param sendEmail Specifies whether to send an email or not.
+   * @param language The two letter language code of the email.
    */
-  updateUserPassword(body: Password, userName: string, sendEmail?: boolean): Observable<any | ApiException> {
+  updateUserPassword(body: Password, userName: string, sendEmail?: boolean, language?: string): Observable<any | ApiException> {
     if (body === null || body === undefined) {
       throw new Error('Required parameter body was null or undefined when calling updateUserPassword.');
     }
@@ -170,7 +177,12 @@ export class DomainUserService {
     .set('Content-Type', 'application/json');
     let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     if (sendEmail !== undefined && sendEmail !== null) {
-      queryParameters = queryParameters.set('updateGroups', sendEmail ? 'true' : 'false');
+      queryParameters = queryParameters.set('email', sendEmail ? 'true' : 'false');
+    }
+    if (language !== undefined && language !== null) {
+      queryParameters = queryParameters.set('lang', language.toUpperCase());
+    } else {
+      queryParameters = queryParameters.set('lang', 'en');
     }
     return this.http.put<any>(`${this.baseUrl}/api/users/${encodeURIComponent(String(userName))}/password`,
       body,
@@ -182,8 +194,8 @@ export class DomainUserService {
       catchError(err => {
         if (err.error && err.error.errorCode === ApiException.PASSWORD_NOT_MATCH) {
           return of(new ApiException(err, ApiException.PASSWORD_NOT_MATCH));
-        // } else if (err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
-        //   return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
+          // } else if (err.error && err.error.errorCode === ApiException.CHECK_PASSWORD_RESTRICTIONS) {
+          //   return of(new ApiException(err, ApiException.CHECK_PASSWORD_RESTRICTIONS));
         } else {
           return throwError(err);
         }
