@@ -66,7 +66,9 @@ export class UserPasswordComponent implements OnInit {
       this.form = this.formBuilder.group({
         previousValue: this.isAdmin ? [''] : ['', Validators.required],
         value: ['', Validators.pattern(this.passwordPattern(pwdInfo))],
-        repeatedValue: ['', Validators.pattern(this.passwordPattern(pwdInfo))]
+        repeatedValue: ['', Validators.pattern(this.passwordPattern(pwdInfo))],
+        sendEmail: false,
+        lang: 'en'
       }, {validators: this.passwordsEqualValidator});
     }
     return this.form;
@@ -95,7 +97,7 @@ export class UserPasswordComponent implements OnInit {
       previousValue: this.isAdmin ? undefined : this.form.get('previousValue').value
     };
     this.userService
-    .updateUserPassword(password, this.user.userName)
+    .updateUserPassword(password, this.user.userName, this.form.get('sendEmail').value, this.form.get('lang').value)
     .subscribe(response => {
       if (response !== null && response instanceof ApiException) {
         this.submitErrorCode = (response as ApiException).hint;

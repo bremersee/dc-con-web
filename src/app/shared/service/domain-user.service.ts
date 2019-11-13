@@ -43,8 +43,8 @@ export class DomainUserService {
     if (sendEmail !== undefined && sendEmail !== null) {
       queryParameters = queryParameters.set('email', sendEmail ? 'true' : 'false');
     }
-    if (language !== undefined && language !== null) {
-      queryParameters = queryParameters.set('lang', language.toUpperCase());
+    if (language !== undefined && language !== null && language.length === 2) {
+      queryParameters = queryParameters.set('lang', language.toLowerCase());
     } else {
       queryParameters = queryParameters.set('lang', 'en');
     }
@@ -179,8 +179,8 @@ export class DomainUserService {
     if (sendEmail !== undefined && sendEmail !== null) {
       queryParameters = queryParameters.set('email', sendEmail ? 'true' : 'false');
     }
-    if (language !== undefined && language !== null) {
-      queryParameters = queryParameters.set('lang', language.toUpperCase());
+    if (language !== undefined && language !== null && language.length === 2) {
+      queryParameters = queryParameters.set('lang', language.toLowerCase());
     } else {
       queryParameters = queryParameters.set('lang', 'en');
     }

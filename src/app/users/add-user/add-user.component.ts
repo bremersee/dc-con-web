@@ -71,7 +71,8 @@ export class AddUserComponent implements OnInit {
         telephoneNumber: [''],
         password: ['', Validators.pattern(this.passwordPattern(pwdInfo))],
         repeatedPassword: [''],
-        sendEmail: [false]
+        sendEmail: [false],
+        lang: 'en'
       }, {
         validators: [this.passwordsEqualValidator]
       });
@@ -104,7 +105,7 @@ export class AddUserComponent implements OnInit {
       telephoneNumber: this.form.get('telephoneNumber').value,
       password: this.form.get('password').value
     };
-    this.userService.addUser(domainUser, this.form.get('sendEmail').value)
+    this.userService.addUser(domainUser, this.form.get('sendEmail').value, this.form.get('lang').value)
     .subscribe(response => {
       this.router.navigate(['/users'])
       .then(() => this.notificationService.sendSuccessMessage('User successfully added.'));
