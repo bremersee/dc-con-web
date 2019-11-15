@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {faCheckCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../environments/environment';
+import {TestErrorService} from '../shared/service/test-error.service';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private users: Observable<Array<DomainUser>>;
 
-  constructor(private route: ActivatedRoute, private domainUserService: DomainUserService) {
+  constructor(private route: ActivatedRoute, private domainUserService: DomainUserService, private testErrorService: TestErrorService) {
   }
 
   ngOnInit() {
@@ -47,6 +48,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     } else {
       return faTimesCircle;
     }
+  }
+
+  createError() {
+    this.testErrorService.testError().subscribe(response => console.warn('Test error'));
   }
 
 }

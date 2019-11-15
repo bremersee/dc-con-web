@@ -1,11 +1,12 @@
 import {ErrorHandler, Injectable, Injector, Type} from '@angular/core';
 import {RestApiException} from '../shared/model/rest-api-exception';
-import {NotificationService} from '../shared/service/notification.service';
+import {SnackbarService} from '../shared/snackbar/snackbar.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector) {
+  }
 
   handleError(error) {
     let errorMessage = error.message;
@@ -19,8 +20,8 @@ export class GlobalErrorHandler implements ErrorHandler {
         errorMessage = restApiException.message;
       }
     }
-    const notificationService = this.injector.get<NotificationService>(NotificationService as Type<NotificationService>);
-    notificationService.sendErrorMessage(errorMessage);
+    const snackbar = this.injector.get<SnackbarService>(SnackbarService as Type<SnackbarService>);
+    snackbar.show(errorMessage, 'danger');
   }
 
 }

@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {NotificationService} from '../../shared/service/notification.service';
 import {ApiException} from '../../error/api-exception';
+import {SnackbarService} from '../../shared/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-user-password',
@@ -34,6 +35,7 @@ export class UserPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private oauthService: AuthService,
     private notificationService: NotificationService,
+    private snackbar: SnackbarService,
     private userService: DomainUserService,
     private domainService: DomainService) {
 
@@ -103,7 +105,7 @@ export class UserPasswordComponent implements OnInit {
         this.submitErrorCode = (response as ApiException).hint;
       } else {
         this.router.navigate(['/users/' + this.user.userName])
-        .then(() => this.notificationService.sendSuccessMessage('Password successfully changed.'));
+        .then(() => this.snackbar.show('Password successfully changed.'));
       }
     });
   }

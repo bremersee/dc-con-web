@@ -29,6 +29,8 @@ import {AddUserComponent} from './users/add-user/add-user.component';
 import {NotificationComponent} from './notification/notification.component';
 import {HttpErrorInterceptor} from './error/http-error-interceptor';
 import {GlobalErrorHandler} from './error/global-error-handler';
+import { SnackbarComponent } from './shared/snackbar/snackbar.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -46,10 +48,12 @@ import {GlobalErrorHandler} from './error/global-error-handler';
     UserPasswordComponent,
     UserDeleteComponent,
     AddUserComponent,
-    NotificationComponent
+    NotificationComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -67,11 +71,11 @@ import {GlobalErrorHandler} from './error/global-error-handler';
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true
+//    },
+//    {
+//      provide: HTTP_INTERCEPTORS,
+//      useClass: HttpErrorInterceptor,
+//      multi: true
     }
   ],
   bootstrap: [AppComponent]
