@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit {
   }
 
   login() {
-    this.oauthService.login('');
+    this.oauthService.login('/users');
   }
 
   logout() {

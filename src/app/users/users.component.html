@@ -37,7 +37,7 @@
       <fa-icon [icon]="enabledIcon(user)"></fa-icon>
     </td>
     <td>
-      <a routerLink="/users/{{user.userName}}">
+      <a [routerLink]="'/users/' + urlEncodedName(user)">
         <fa-icon [icon]="userEditIcon"></fa-icon>
       </a>
     </td>

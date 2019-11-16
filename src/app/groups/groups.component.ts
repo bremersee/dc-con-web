@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {DomainGroup, DomainGroupService} from '../shared/service/domain-group.service';
+import {Observable} from 'rxjs';
+import {DomainUser} from '../shared/model/domain-user';
+import {ActivatedRoute} from '@angular/router';
+import {faEdit, faUserEdit} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-groups',
@@ -7,9 +12,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupsComponent implements OnInit {
 
-  constructor() { }
+  private groupEditIcon = faEdit;
+
+  private sortOrder: string;
+
+  private query: string;
+
+  private groups: Observable<Array<DomainGroup>>;
+
+  constructor(private route: ActivatedRoute, private groupService: DomainGroupService) { }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(paramMap => {
+      this.sortOrder = paramMap.get('sort') || 'name';
+      this.query = paramMap.get('q') || '';
+      this.groups = this.groupService.getGroups(this.sortOrder, this.query);
+    });
+  }
+
+  urlEncodedName(group: DomainGroup): string {
+    return encodeURIComponent(group.name);
   }
 
 }

@@ -40,6 +40,8 @@ export class AppComponent {
     // See if the hash fragment contains tokens (when user got redirected back)
     .then(() => oauthService.tryLogin({
       onTokenReceived: (info) => {
+        console.warn('path: |' + info.state + '|');
+        // this.router.navigate([info.state]);
         /*
         console.warn('path: |' + info.state + '|');
         if (info.state && info.state.trim() !== '') {
@@ -60,6 +62,7 @@ export class AppComponent {
     }))
     // If we're still not logged in yet, try with a silent refresh:
     .then(() => {
+      console.warn('logged in? ' + oauthService.hasValidAccessToken());
       /*
       if (!oauthService.hasValidAccessToken()) {
         console.warn('Doing silent refresh.');

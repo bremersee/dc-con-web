@@ -1,1 +1,32 @@
-<p>groups works!</p>
+<div class="row">
+  <ul class="nav nav-pills mr-auto">
+    <li class="nav-item">
+      <a class="nav-link btn btn-outline-primary" routerLink="/add-group">Add group</a>
+    </li>
+  </ul>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
+
+<table class="table mt-4">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Group name</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let group of groups | async; let i = index">
+      <td>{{i}}</td>
+      <td>{{group.name}}</td>
+      <td>
+        <a [routerLink]="'/groups/' + urlEncodedName(group)">
+          <fa-icon [icon]="groupEditIcon"></fa-icon>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

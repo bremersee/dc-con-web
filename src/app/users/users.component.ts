@@ -38,6 +38,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     // nothing to do
   }
 
+  urlEncodedName(user: DomainUser): string {
+    return encodeURIComponent(user.userName);
+  }
+
   avatarUrl(user: DomainUser, size: number): string {
     return environment.dcConBaseUrl + '/api/users/' + user.userName + '/avatar?d=' + environment.avatarDefault + '&s=' + size;
   }
