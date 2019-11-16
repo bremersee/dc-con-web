@@ -26,8 +26,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserPasswordComponent} from './user/user-password/user-password.component';
 import {UserDeleteComponent} from './user/user-delete/user-delete.component';
 import {AddUserComponent} from './users/add-user/add-user.component';
-import {NotificationComponent} from './notification/notification.component';
-import {HttpErrorInterceptor} from './error/http-error-interceptor';
 import {GlobalErrorHandler} from './error/global-error-handler';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -37,6 +35,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppComponent,
     HeaderComponent,
     AuthComponent,
+    SnackbarComponent,
     OpeningComponent,
     UsersComponent,
     GroupsComponent,
@@ -47,9 +46,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     UserProfileComponent,
     UserPasswordComponent,
     UserDeleteComponent,
-    AddUserComponent,
-    NotificationComponent,
-    SnackbarComponent
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

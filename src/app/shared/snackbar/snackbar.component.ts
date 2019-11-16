@@ -32,7 +32,7 @@ export class SnackbarComponent implements OnInit, OnDestroy {
 
   private show = false;
 
-  private message = 'This is snackbar';
+  private message = 'This is snackbar.';
 
   private type = 'success';
 

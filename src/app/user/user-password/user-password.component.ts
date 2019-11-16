@@ -8,7 +8,6 @@ import {PasswordComplexity, PasswordInformation} from '../../shared/model/passwo
 import {AuthService} from '../../shared/security/auth.service';
 import {environment} from '../../../environments/environment';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {NotificationService} from '../../shared/service/notification.service';
 import {ApiException} from '../../error/api-exception';
 import {SnackbarService} from '../../shared/snackbar/snackbar.service';
 
@@ -34,7 +33,6 @@ export class UserPasswordComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private oauthService: AuthService,
-    private notificationService: NotificationService,
     private snackbar: SnackbarService,
     private userService: DomainUserService,
     private domainService: DomainService) {

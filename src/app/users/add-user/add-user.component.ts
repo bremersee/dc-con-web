@@ -5,9 +5,9 @@ import {DomainUser, DomainUserService} from '../../shared/service/domain-user.se
 import {DomainService} from '../../shared/service/domain.service';
 import {Observable, of} from 'rxjs';
 import {PasswordComplexity, PasswordInformation} from '../../shared/model/password-information';
-import {NotificationService} from '../../shared/service/notification.service';
 import {DomainGroupService} from '../../shared/service/domain-group.service';
 import {map} from 'rxjs/operators';
+import {SnackbarService} from '../../shared/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-add-user',
@@ -27,7 +27,7 @@ export class AddUserComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private notificationService: NotificationService,
+    private snackbar: SnackbarService,
     private userService: DomainUserService,
     private groupService: DomainGroupService,
     private domainService: DomainService) {
@@ -108,7 +108,7 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(domainUser, this.form.get('sendEmail').value, this.form.get('lang').value)
     .subscribe(response => {
       this.router.navigate(['/users'])
-      .then(() => this.notificationService.sendSuccessMessage('User successfully added.'));
+      .then(() => this.snackbar.show('User successfully added.'));
     });
   }
 
