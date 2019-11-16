@@ -29,6 +29,8 @@ import {AddUserComponent} from './users/add-user/add-user.component';
 import {GlobalErrorHandler} from './error/global-error-handler';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { GroupComponent } from './group/group.component';
+import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     UserProfileComponent,
     UserPasswordComponent,
     UserDeleteComponent,
-    AddUserComponent
+    AddUserComponent,
+    GroupComponent,
+    AddGroupComponent
   ],
   imports: [
     BrowserModule,
