@@ -20,14 +20,18 @@
       </span>
     </h2>
 
-    <p *ngIf="user.description" class="card-text">{{user.description}}</p>
-
     <div class="list-group">
       <div *ngIf="user.displayName" class="list-group-item">
         <div>
           <small class="text-muted font-italic">User name</small>
         </div>
         <div class="font-weight-bold">{{user.userName}}</div>
+      </div>
+      <div *ngIf="user.description" class="list-group-item">
+        <div>
+          <small class="text-muted font-italic">Description</small>
+        </div>
+        <div class="font-weight-bold">{{user.description}}</div>
       </div>
       <div class="list-group-item d-flex justify-content-between align-items-center">
         <div class="text-muted font-italic">Enabled</div>

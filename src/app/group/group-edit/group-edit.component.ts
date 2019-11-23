@@ -60,6 +60,10 @@ export class GroupEditComponent implements OnInit, OnDestroy {
     return this.authService.hasAnyRole(environment.editRoles);
   }
 
+  get displayDescription(): boolean {
+    return this.descriptionMode === 'display' || this.descriptionMode === 'edit' || this.descriptionMode === 'add';
+  }
+
   toggleMember(member: DomainGroupMember): void {
     this.membersSubject.next(member);
   }
