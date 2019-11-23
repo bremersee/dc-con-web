@@ -92,7 +92,6 @@ export class GroupEditComponent implements OnInit, OnDestroy {
   }
 
   saveDescription(value: string): void {
-    console.warn('New description: ' + value);
     this.group.description = value;
     this.groupService
     .updateGroup(this.group, this.group.name)
