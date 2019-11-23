@@ -31,6 +31,8 @@ import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GroupComponent } from './group/group.component';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
+import { GroupEditComponent } from './group/group-edit/group-edit.component';
+import { GroupDeleteComponent } from './group/group-delete/group-delete.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
     UserDeleteComponent,
     AddUserComponent,
     GroupComponent,
-    AddGroupComponent
+    AddGroupComponent,
+    GroupEditComponent,
+    GroupDeleteComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,35 @@
-<p>add-group works!</p>
+<h2 class="text-center p-4">
+  Add group
+</h2>
+<form formGroup="form" (ngSubmit)="addGroup()">
+  <div class="form-group">
+    <label for="name">Group name</label>
+    <input type="text" class="form-control"
+           [ngClass]="form.get('name').errors ? 'is-invalid' : ''"
+           id="name" name="name"
+           aria-describedby="nameHelp" placeholder="Group name"
+           formControlName="name">
+    <small id="nameHelp" class="form-text text-muted">Please type in the group name.</small>
+    <small *ngIf="form.get('name').errors && form.get('name').errors.exists"
+           class="form-text text-danger">
+      Group name already exists.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control rounded-0" id="description" name="description"
+              aria-describedby="descriptionHelp"
+              formControlName="description"></textarea>
+    <small id="descriptionHelp" class="form-text text-muted">A description of the group.</small>
+  </div>
+
+  <div class="row pt-4 pb-5 ml-2">
+    <div class="flex-column pr-2">
+      <button type="submit" class="btn btn-primary"
+              [disabled]="!form.valid">
+        Add group
+      </button>
+    </div>
+  </div>
+</form>

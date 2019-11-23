@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DomainGroup, DomainGroupService} from '../shared/service/domain-group.service';
 import {Observable} from 'rxjs';
-import {DomainUser} from '../shared/model/domain-user';
 import {ActivatedRoute} from '@angular/router';
-import {faEdit, faUserEdit} from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from '../shared/security/auth.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-groups',
@@ -20,7 +21,11 @@ export class GroupsComponent implements OnInit {
 
   private groups: Observable<Array<DomainGroup>>;
 
-  constructor(private route: ActivatedRoute, private groupService: DomainGroupService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private groupService: DomainGroupService) {
+  }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(paramMap => {
@@ -30,8 +35,8 @@ export class GroupsComponent implements OnInit {
     });
   }
 
-  urlEncodedName(group: DomainGroup): string {
-    return encodeURIComponent(group.name);
+  get isAdmin() {
+    return this.authService.hasAnyRole(environment.editRoles);
   }
 
 }

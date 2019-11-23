@@ -1,1 +1,17 @@
-<p>group works!</p>
+<ng-container *ngIf="group | async as domainGroup; else elseBlock">
+  <ul *ngIf="isAdmin" class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="isEditActive ? 'active' : ''"
+         routerLink="/groups/{{domainGroup.name}}">Edit</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="isDeleteActive ? 'active' : ''"
+         routerLink="/groups/{{domainGroup.name}}" [queryParams]="{view: 'delete'}">Delete</a>
+    </li>
+  </ul>
+  <app-group-edit *ngIf="view === 'edit'" [group]="domainGroup" (updatedGroup)="onUpdatedGroup($event)"></app-group-edit>
+  <app-group-delete *ngIf="view === 'delete'" [group]="domainGroup"></app-group-delete>
+</ng-container>
+<ng-template #elseBlock>
+  Empty group
+</ng-template>
