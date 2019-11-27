@@ -7,7 +7,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
-import {OAuthModule} from 'angular-oauth2-oidc';
+import {OAuthModule, OAuthStorage} from 'angular-oauth2-oidc';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -33,6 +33,11 @@ import { GroupComponent } from './group/group.component';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
 import { GroupEditComponent } from './group/group-edit/group-edit.component';
 import { GroupDeleteComponent } from './group/group-delete/group-delete.component';
+
+// We need a factory, since localStorage is not available during AOT build time.
+export function storageFactory(): OAuthStorage {
+  return localStorage;
+}
 
 @NgModule({
   declarations: [
@@ -81,6 +86,10 @@ import { GroupDeleteComponent } from './group/group-delete/group-delete.componen
 //      provide: HTTP_INTERCEPTORS,
 //      useClass: HttpErrorInterceptor,
 //      multi: true
+    },
+    {
+      provide: OAuthStorage,
+      useFactory: storageFactory
     }
   ],
   bootstrap: [AppComponent]

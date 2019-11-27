@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private users: Observable<Array<DomainUser>>;
 
-  constructor(private route: ActivatedRoute, private domainUserService: DomainUserService, private testErrorService: TestErrorService) {
+  constructor(private route: ActivatedRoute, private domainUserService: DomainUserService) {
   }
 
   ngOnInit() {
@@ -52,10 +52,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     } else {
       return faTimesCircle;
     }
-  }
-
-  createError() {
-    this.testErrorService.testError().subscribe(response => console.warn('Test error'));
   }
 
 }
