@@ -7,11 +7,11 @@ import {AuthConfig} from 'angular-oauth2-oidc';
 export const environment = {
   production: false,
   retry: 2,
-  dcConBaseUrl: 'https://dc.eixe.bremersee.org',
+  dcConBaseUrl: 'https://ad.eixe.bremersee.org',
   viewRoles: ['LOCAL_USER', 'ADMIN'],
   editRoles: ['ADMIN'],
   tokenConfig: {
-    allowedUrls: ['https://dc.eixe.bremersee.org/api', 'http://dc.eixe.bremersee.org:8090/api'],
+    allowedUrls: ['https://ad.eixe.bremersee.org/api'],
     issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',
     clientId: 'omnia',
     scope: 'openid profile email'

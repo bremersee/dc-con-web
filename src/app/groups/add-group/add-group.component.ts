@@ -33,24 +33,24 @@ export class AddGroupComponent implements OnInit {
       }));
     };
 
-  }
-
-  ngOnInit() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required], [this.groupNameExistsValidator]],
       description: ['']
     });
   }
 
+  ngOnInit() {
+  }
+
   addGroup(): void {
     const group: DomainGroup = {
-      _type: 'DomainUser',
+      _type: 'DomainGroup',
       name: this.form.get('name').value,
       description: this.form.get('description').value
     };
     this.groupService.addGroup(group)
     .subscribe(response => {
-      this.router.navigate(['/groups/' + encodeURIComponent(group.name)])
+      this.router.navigate(['/groups/' + group.name])
       .then(() => this.snackbar.show('Group successfully added.'));
     });
   }
