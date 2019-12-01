@@ -1,16 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthConfig, JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
-import {Router} from '@angular/router';
-import {environment} from '../environments/environment';
-
-export const authConfig: AuthConfig = {
-  issuer: environment.tokenConfig.issuer,
-  redirectUri: window.location.origin,
-  silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-  clientId: environment.tokenConfig.clientId,
-  scope: environment.tokenConfig.scope,
-  sessionChecksEnabled: true
-};
+import {AuthService} from './shared/security/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +9,8 @@ export const authConfig: AuthConfig = {
 export class AppComponent {
   title = 'dc-con-web';
 
-  constructor(private oauthService: OAuthService, private router: Router) {
-    oauthService.configure(authConfig);
-    oauthService.tokenValidationHandler = new JwksValidationHandler();
-    oauthService.loadDiscoveryDocumentAndTryLogin();
-    oauthService.setupAutomaticSilentRefresh();
+  constructor(private authService: AuthService) {
+    this.authService.runInitialLoginSequence();
   }
+
 }

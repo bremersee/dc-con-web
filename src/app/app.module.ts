@@ -33,6 +33,7 @@ import { GroupComponent } from './group/group.component';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
 import { GroupEditComponent } from './group/group-edit/group-edit.component';
 import { GroupDeleteComponent } from './group/group-delete/group-delete.component';
+import {CookieService} from 'ngx-cookie-service';
 
 // We need a factory, since localStorage is not available during AOT build time.
 export function storageFactory(): OAuthStorage {
@@ -78,15 +79,16 @@ export function storageFactory(): OAuthStorage {
     })
   ],
   providers: [
+    CookieService,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
-//    },
+    },
 //    {
 //      provide: HTTP_INTERCEPTORS,
 //      useClass: HttpErrorInterceptor,
 //      multi: true
-    },
+//    },
     {
       provide: OAuthStorage,
       useFactory: storageFactory
