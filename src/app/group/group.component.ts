@@ -13,11 +13,11 @@ import {AuthService} from '../shared/security/auth.service';
 })
 export class GroupComponent implements OnInit {
 
-  private view: string;
-
   private groupName: string;
 
-  private group: Observable<DomainGroup>;
+  group: Observable<DomainGroup>;
+
+  view: string;
 
   constructor(private route: ActivatedRoute, private oauthService: AuthService, private groupService: DomainGroupService) {
   }

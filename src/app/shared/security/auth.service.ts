@@ -12,8 +12,8 @@ import {browser} from 'protractor';
 
 export const authConfig: AuthConfig = {
   issuer: environment.tokenConfig.issuer,
-  redirectUri: window.location.origin,
-  silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
+  redirectUri: window.location.origin + environment.tokenConfig.path,
+  silentRefreshRedirectUri: window.location.origin + environment.tokenConfig.path + '/silent-refresh.html',
   clientId: environment.tokenConfig.clientId,
   scope: environment.tokenConfig.scope,
   sessionChecksEnabled: true

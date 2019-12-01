@@ -30,7 +30,7 @@ export class GroupEditComponent implements OnInit, OnDestroy {
 
   descriptionMode = 'hide';
 
-  private editDescriptionIcon = faEdit;
+  editDescriptionIcon = faEdit;
 
   constructor(
     private router: Router,

@@ -14,7 +14,8 @@ export const environment = {
     allowedUrls: ['https://ad.eixe.bremersee.org/api'],
     issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',
     clientId: 'omnia',
-    scope: 'openid profile email'
+    scope: 'openid profile email',
+    path: ''
   },
   avatarDefault: 'ROBOHASH'
 };

@@ -15,13 +15,13 @@ import {TestErrorService} from '../shared/service/test-error.service';
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
-  private userEditIcon = faUserEdit;
+  userEditIcon = faUserEdit;
 
   private sortOrder: string;
 
   private query: string;
 
-  private users: Observable<Array<DomainUser>>;
+  users: Observable<Array<DomainUser>>;
 
   constructor(private route: ActivatedRoute, private domainUserService: DomainUserService) {
   }

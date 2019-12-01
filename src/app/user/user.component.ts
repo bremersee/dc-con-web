@@ -10,11 +10,11 @@ import {Observable, of} from 'rxjs';
 })
 export class UserComponent implements OnInit {
 
-  private view: string;
-
   private userName: string;
 
-  private user: Observable<DomainUser>;
+  user: Observable<DomainUser>;
+
+  view: string;
 
   constructor(private route: ActivatedRoute, private domainUserService: DomainUserService) {
   }

@@ -13,13 +13,13 @@ import {environment} from '../../environments/environment';
 })
 export class GroupsComponent implements OnInit {
 
-  private groupEditIcon = faEdit;
+  groupEditIcon = faEdit;
 
   private sortOrder: string;
 
   private query: string;
 
-  private groups: Observable<Array<DomainGroup>>;
+  groups: Observable<Array<DomainGroup>>;
 
   constructor(
     private route: ActivatedRoute,
