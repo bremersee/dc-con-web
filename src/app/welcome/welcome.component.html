@@ -1,0 +1,8 @@
+<ng-container *ngIf="user | async as domainUser; else elseBlock">
+  <app-user-password [user]="domainUser"></app-user-password>
+</ng-container>
+<ng-template #elseBlock>
+  Admin or no local user
+</ng-template>
+
+
