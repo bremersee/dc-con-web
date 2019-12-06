@@ -31,8 +31,7 @@ COPY . /app
 # RUN ng e2e --port 4202
 
 # generate build
-# RUN ng build --prod --baseHref /dc-con-web/ --output-path dist/dc-con-web
-RUN ng build --prod --output-path dist
+RUN ng build --prod --baseHref /dc-con-web/ --output-path dist
 
 ############
 ### prod ###
@@ -40,6 +39,8 @@ RUN ng build --prod --output-path dist
 
 # base image
 FROM nginx:1.16.0-alpine
+
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /usr/share/nginx/html
