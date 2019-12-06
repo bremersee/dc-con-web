@@ -27,7 +27,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry( '', DOCKER_CREDENTIALS ) {
-            DOCKER_IMAGE.push();
+            DOCKER_IMAGE_WITH_BUILD_NUMBER.push();
           }
         }
       }
@@ -38,7 +38,7 @@ pipeline {
       }
       steps {
         script {
-          sh "docker rmi $DOCKER_IMAGE:$BUILD_NUMBER"
+          sh "docker rmi $DOCKER_REGISTRY:$BUILD_NUMBER"
         }
       }
     }
