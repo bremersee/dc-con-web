@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  env: 'prod',
   retry: 2,
   dcConBaseUrl: 'https://ad.eixe.bremersee.org',
   viewRoles: ['LOCAL_USER', 'ADMIN'],

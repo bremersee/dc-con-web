@@ -1,3 +1,7 @@
+import {Sid} from './sid';
+
+export {Sid} from './sid';
+
 /**
  * Domain user.
  */
@@ -92,6 +96,11 @@ export interface DomainUser {
    * Date of the last password change.
    */
   passwordLastSet?: Date;
+
+  /**
+   * The windows/samba SID.
+   */
+  sid?: Sid;
 
   /**
    * The telephone number of the domain user.

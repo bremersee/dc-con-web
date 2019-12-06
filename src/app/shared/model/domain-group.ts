@@ -1,3 +1,7 @@
+import {Sid} from './sid';
+
+export {Sid} from './sid';
+
 /**
  * Domain group.
  */
@@ -37,5 +41,10 @@ export interface DomainGroup {
    * The name of the domain group.
    */
   name: string;
+
+  /**
+   * The windows/samba SID.
+   */
+  sid?: Sid;
 
 }

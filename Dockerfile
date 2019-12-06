@@ -27,11 +27,12 @@ RUN npm install -g @angular/cli@8.3.6
 COPY . /app
 
 # run tests
-RUN ng test --watch=false
-RUN ng e2e --port 4202
+# RUN ng test --watch=false
+# RUN ng e2e --port 4202
 
 # generate build
-RUN ng build --prod --baseHref /dc-con-web/ --output-path dist
+# RUN ng build --prod --baseHref /dc-con-web/ --output-path dist/dc-con-web
+RUN ng build --prod --output-path dist
 
 ############
 ### prod ###
