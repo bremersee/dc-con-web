@@ -38,7 +38,7 @@ export class GroupComponent implements OnInit {
   }
 
   get isAdmin(): boolean {
-    return this.oauthService.hasAnyRole(environment.editRoles);
+    return this.oauthService.hasAnyRole(environment.adminRoles);
   }
 
   get isEditActive() {

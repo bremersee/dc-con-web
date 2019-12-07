@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {AuthService} from './auth.service';
+import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ValidUserGuardService implements CanActivate {
+export class AdminUserGuardService implements CanActivate {
 
   private isAuthenticated: boolean;
 
@@ -21,7 +21,7 @@ export class ValidUserGuardService implements CanActivate {
     .pipe(tap(() => this.isAuthenticated || this.authService.login(state.url)))
     .pipe(map(() => {
       console.warn('Is authenticated: ' + this.isAuthenticated);
-      return this.isAuthenticated;
+      return this.isAuthenticated && this.authService.isAdmin;
     }));
   }
 

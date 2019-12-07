@@ -57,7 +57,7 @@ export class GroupEditComponent implements OnInit, OnDestroy {
   }
 
   get canEdit(): boolean {
-    return this.authService.hasAnyRole(environment.editRoles);
+    return this.authService.hasAnyRole(environment.adminRoles);
   }
 
   get displayDescription(): boolean {

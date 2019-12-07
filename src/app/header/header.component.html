@@ -2,10 +2,10 @@
   <a class="navbar-brand" href="#">dc-con-web</a>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
-      <li *ngIf="canView" class="nav-item">
+      <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" routerLink="/users" [queryParams]="usersParams">Users</a>
       </li>
-      <li *ngIf="canView" class="nav-item">
+      <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" routerLink="/groups" [queryParams]="groupsParams">Groups</a>
       </li>
     </ul>

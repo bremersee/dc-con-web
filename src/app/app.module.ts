@@ -13,7 +13,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {AuthComponent} from './header/auth/auth.component';
-import {OpeningComponent} from './opening/opening.component';
 import {UsersComponent} from './users/users.component';
 import {GroupsComponent} from './groups/groups.component';
 import {UserComponent} from './user/user.component';
@@ -35,6 +34,7 @@ import { GroupEditComponent } from './group/group-edit/group-edit.component';
 import { GroupDeleteComponent } from './group/group-delete/group-delete.component';
 import {CookieService} from 'ngx-cookie-service';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 // We need a factory, since localStorage is not available during AOT build time.
 export function storageFactory(): OAuthStorage {
@@ -47,7 +47,7 @@ export function storageFactory(): OAuthStorage {
     HeaderComponent,
     AuthComponent,
     SnackbarComponent,
-    OpeningComponent,
+    WelcomeComponent,
     UsersComponent,
     GroupsComponent,
     UserComponent,
@@ -62,7 +62,7 @@ export function storageFactory(): OAuthStorage {
     AddGroupComponent,
     GroupEditComponent,
     GroupDeleteComponent,
-    WelcomeComponent
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

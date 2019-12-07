@@ -23,7 +23,10 @@
   <app-user-edit *ngIf="view === 'edit'" [user]="domainUser" (updatedUser)="onUpdatedUser($event)">
   </app-user-edit>
   <app-user-groups *ngIf="view === 'groups'" [user]="domainUser"></app-user-groups>
-  <app-user-password *ngIf="view === 'password'" [user]="domainUser"></app-user-password>
+  <app-user-password *ngIf="view === 'password'"
+                     [user]="domainUser"
+                     [successLocation]="'/users/' + domainUser.userName">
+  </app-user-password>
   <app-user-delete *ngIf="view === 'delete'" [user]="domainUser"></app-user-delete>
 
 </ng-container>

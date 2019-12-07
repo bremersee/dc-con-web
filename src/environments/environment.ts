@@ -9,8 +9,8 @@ export const environment = {
   env: 'dev',
   retry: 2,
   dcConBaseUrl: 'https://ad.eixe.bremersee.org',
-  viewRoles: ['LOCAL_USER', 'ADMIN'],
-  editRoles: ['ADMIN'],
+  localUserRoles: ['LOCAL_USER'],
+  adminRoles: ['ADMIN', 'DC_CON_ADMIN'],
   tokenConfig: {
     allowedUrls: ['https://ad.eixe.bremersee.org/api'],
     issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',

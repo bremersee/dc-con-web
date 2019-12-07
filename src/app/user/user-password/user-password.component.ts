@@ -21,6 +21,9 @@ export class UserPasswordComponent implements OnInit {
   @Input()
   user: DomainUser;
 
+  @Input()
+  successLocation: string;
+
   passwordInformation: Observable<PasswordInformation>;
 
   form: FormGroup;
@@ -58,7 +61,7 @@ export class UserPasswordComponent implements OnInit {
   }
 
   get isAdmin(): boolean {
-    return this.oauthService.hasAnyRole(environment.editRoles);
+    return this.oauthService.hasAnyRole(environment.adminRoles);
   }
 
   buildForm(pwdInfo: PasswordInformation) {
@@ -102,7 +105,7 @@ export class UserPasswordComponent implements OnInit {
       if (response !== null && response instanceof ApiException) {
         this.submitErrorCode = (response as ApiException).hint;
       } else {
-        this.router.navigate(['/users/' + this.user.userName])
+        this.router.navigate([this.successLocation])
         .then(() => this.snackbar.show('Password successfully changed.'));
       }
     });

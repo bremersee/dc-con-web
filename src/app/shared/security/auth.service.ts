@@ -6,9 +6,7 @@ import {BehaviorSubject, combineLatest, Observable, ReplaySubject} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {AuthStorageService} from './auth-storage.service';
 import {CookieService} from 'ngx-cookie-service';
-import {browser} from 'protractor';
 
 export const authConfig: AuthConfig = {
   issuer: environment.tokenConfig.issuer,
@@ -183,12 +181,20 @@ export class AuthService {
     }
   }
 
-  isLoggedIn(): boolean {
+  logout(): void {
+    this.oauthService.logOut();
+  }
+
+  get isLoggedIn(): boolean {
     return this.oauthService.hasValidAccessToken();
   }
 
-  logout(): void {
-    this.oauthService.logOut();
+  get isAdmin(): boolean {
+    return this.hasAnyRole(environment.adminRoles);
+  }
+
+  get isLocalUser(): boolean {
+    return this.hasAnyRole(environment.localUserRoles);
   }
 
   get accessTokenClaims(): AccessTokenClaims {

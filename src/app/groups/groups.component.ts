@@ -36,7 +36,7 @@ export class GroupsComponent implements OnInit {
   }
 
   get isAdmin() {
-    return this.authService.hasAnyRole(environment.editRoles);
+    return this.authService.hasAnyRole(environment.adminRoles);
   }
 
 }

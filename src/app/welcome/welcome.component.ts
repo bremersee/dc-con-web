@@ -12,14 +12,9 @@ import {environment} from '../../environments/environment';
 })
 export class WelcomeComponent implements OnInit {
 
-  user: Observable<DomainUser>;
-
-  constructor(private authService: AuthService, private domainUserService: DomainUserService) { }
+  constructor() { }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn() && this.domainUserService.userExists(this.authService.preferredUserName)) {
-      this.user = this.domainUserService.getUser(this.authService.preferredUserName);
-    }
   }
 
 }
