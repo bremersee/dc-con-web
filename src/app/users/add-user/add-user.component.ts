@@ -92,6 +92,13 @@ export class AddUserComponent implements OnInit {
     return PasswordComplexity.OFF !== pwdInfo.passwordComplexity;
   }
 
+  generatePassword(): void {
+    this.domainService.getRandomPassword().subscribe(password => {
+      this.form.get('password').setValue(password.value);
+      this.form.get('repeatedPassword').setValue(password.value);
+    });
+  }
+
   addUser(): void {
     const domainUser: DomainUser = {
       _type: 'DomainUser',

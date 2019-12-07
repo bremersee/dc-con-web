@@ -3,8 +3,8 @@ export const environment = {
   env: 'gh',
   retry: 2,
   dcConBaseUrl: 'https://api.dev.bremersee.org/dc-con-app',
-  localUserRoles: ['LOCAL_USER', 'ADMIN'],
-  adminRoles: ['ADMIN'],
+  localUserRoles: ['LOCAL_USER'],
+  adminRoles: ['ADMIN', 'DC_CON_ADMIN'],
   tokenConfig: {
     allowedUrls: ['https://api.dev.bremersee.org/dc-con-app/api'],
     issuer: 'https://openid.dev.bremersee.org/auth/realms/demo',

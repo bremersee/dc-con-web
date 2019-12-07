@@ -35,7 +35,7 @@ export class UserPasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private oauthService: AuthService,
+    private authService: AuthService,
     private snackbar: SnackbarService,
     private userService: DomainUserService,
     private domainService: DomainService) {
@@ -61,7 +61,7 @@ export class UserPasswordComponent implements OnInit {
   }
 
   get isAdmin(): boolean {
-    return this.oauthService.hasAnyRole(environment.adminRoles);
+    return this.authService.isAdmin;
   }
 
   buildForm(pwdInfo: PasswordInformation) {
@@ -108,6 +108,13 @@ export class UserPasswordComponent implements OnInit {
         this.router.navigate([this.successLocation])
         .then(() => this.snackbar.show('Password successfully changed.'));
       }
+    });
+  }
+
+  generatePassword(): void {
+    this.domainService.getRandomPassword().subscribe(password => {
+      this.form.get('value').setValue(password.value);
+      this.form.get('repeatedValue').setValue(password.value);
     });
   }
 
