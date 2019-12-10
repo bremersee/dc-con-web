@@ -1,0 +1,39 @@
+<div class="row">
+  <ul class="nav nav-pills mr-auto">
+    <li class="nav-item">
+      <a class="nav-link btn btn-outline-primary"
+         [routerLink]="'/ns/add-node/' + zoneName">
+        Add node
+      </a>
+    </li>
+  </ul>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
+
+<table class="table mt-4">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Node name</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dnsNode of dnsNodeRecords | async; let i = index">
+    <td>{{i}}</td>
+    <td>{{dnsNode.node.name}}</td>
+    <td>{{dnsNode.record.recordType}}</td>
+    <td>{{dnsNode.record.recordValue}}</td>
+    <td>{{dnsNode.record.correlatedRecordValue}}</td>
+    <td *ngIf="dnsNode.record.dhcpLease">{{dnsNode.record.dhcpLease.mac}}</td>
+    <td *ngIf="!dnsNode.record.dhcpLease"></td>
+  </tr>
+  </tbody>
+</table>

@@ -42,9 +42,6 @@ export class NameServerService {
         observe: observePart,
         reportProgress: isReportProgress
       }
-    ).pipe(
-      retry(3),
-      catchError(this.handleError)
     );
   }
 

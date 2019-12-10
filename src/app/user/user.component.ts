@@ -30,7 +30,6 @@ export class UserComponent implements OnInit {
   }
 
   onUpdatedUser(updatedUser: DomainUser) {
-    console.warn('Updated user = ' + JSON.stringify(updatedUser));
     this.user = of(updatedUser);
   }
 

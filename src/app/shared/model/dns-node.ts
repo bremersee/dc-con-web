@@ -8,6 +8,11 @@ export {DnsRecord} from './dns-record';
 export interface DnsNode {
 
   /**
+   * The model type.
+   */
+  _type: string;
+
+  /**
    * The creation date.
    */
   created?: Date;

@@ -35,6 +35,7 @@ import { GroupDeleteComponent } from './group/group-delete/group-delete.componen
 import {CookieService} from 'ngx-cookie-service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { DnsNodesComponent } from './name-server/dns-nodes/dns-nodes.component';
 
 // We need a factory, since localStorage is not available during AOT build time.
 export function storageFactory(): OAuthStorage {
@@ -62,7 +63,8 @@ export function storageFactory(): OAuthStorage {
     AddGroupComponent,
     GroupEditComponent,
     GroupDeleteComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    DnsNodesComponent
   ],
   imports: [
     BrowserModule,

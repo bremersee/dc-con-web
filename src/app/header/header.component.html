@@ -8,6 +8,38 @@
       <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" routerLink="/groups" [queryParams]="groupsParams">Groups</a>
       </li>
+      <li *ngIf="isAdmin" class="nav-item dropdown" ngbDropdown>
+        <a id="nameServerNavLinks" class="nav-link" ngbDropdownToggle>
+          Name server
+        </a>
+        <div ngbDropdownMenu aria-labelledby="nameServerNavLinks">
+          <ng-container *ngIf="dnsZones | async as zones">
+            <a *ngFor="let zone of zones"
+               [id]="zone.name"
+               class="dropdown-item" [routerLink]="'/ns/nodes/' + zone.name"
+               ngbDropdownItem>
+              {{zone.name}}
+            </a>
+            <div class="dropdown-divider"></div>
+          </ng-container>
+          <a id="dnsNavAddZone" class="dropdown-item"
+             routerLink="/ns/add-zone"
+             ngbDropdownItem>
+            Add zone
+          </a>
+          <a id="dnsNavDelZone" class="dropdown-item"
+             routerLink="/ns/del-zone"
+             ngbDropdownItem>
+            Delete zone
+          </a>
+          <div class="dropdown-divider"></div>
+          <a id="dnsNacDhcpLeases" class="dropdown-item"
+             routerLink="/ns/dhcp"
+             ngbDropdownItem>
+            Dhcp leases
+          </a>
+        </div>
+      </li>
     </ul>
     <app-auth></app-auth>
   </div>

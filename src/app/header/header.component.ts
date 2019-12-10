@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/security/auth.service';
+import {Observable} from 'rxjs';
+import {DnsZone} from '../shared/model/dns-zone';
+import {NameServerService} from '../shared/service/name-server.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +11,13 @@ import {AuthService} from '../shared/security/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private oauthService: AuthService) {
+  dnsZones: Observable<Array<DnsZone>>;
+
+  constructor(private oauthService: AuthService, private nameServer: NameServerService) {
   }
 
   ngOnInit() {
+    this.dnsZones = this.nameServer.getDnsZones();
   }
 
   get isAdmin(): boolean {
