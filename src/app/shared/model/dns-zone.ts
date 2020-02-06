@@ -27,4 +27,10 @@ export interface DnsZone {
    * The zone name.
    */
   name: string;
+
+  /**
+   * Specifies whether this zone is a reverse zone or not.
+   */
+  reverseZone?: boolean;
+
 }
