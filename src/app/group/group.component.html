@@ -1,5 +1,5 @@
 <ng-container *ngIf="group | async as domainGroup; else elseBlock">
-  <ul *ngIf="isAdmin" class="nav nav-tabs">
+  <ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link" [ngClass]="isEditActive ? 'active' : ''"
          routerLink="/groups/{{domainGroup.name}}">Edit</a>

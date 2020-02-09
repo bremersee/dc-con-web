@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {DomainUser} from '../shared/model/domain-user';
 import {DomainUserService} from '../shared/service/domain-user.service';
-import {AuthService} from '../shared/security/auth.service';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
   selector: 'app-change-password',
@@ -13,10 +13,10 @@ export class ChangePasswordComponent implements OnInit {
 
   user: Observable<DomainUser>;
 
-  constructor(private authService: AuthService, private domainUserService: DomainUserService) { }
+  constructor(private keycloakService: KeycloakService, private domainUserService: DomainUserService) { }
 
   ngOnInit() {
-    this.user = this.domainUserService.getUser(this.authService.preferredUserName);
+    this.user = this.domainUserService.getUser(this.keycloakService.getUsername());
   }
 
 }

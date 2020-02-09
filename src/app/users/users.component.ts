@@ -6,7 +6,6 @@ import {ActivatedRoute} from '@angular/router';
 import {faCheckCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../environments/environment';
-import {TestErrorService} from '../shared/service/test-error.service';
 
 @Component({
   selector: 'app-users',

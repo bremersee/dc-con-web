@@ -1,10 +1,10 @@
-<div *ngIf="!userId">
+<div *ngIf="!isLoggedIn">
   <button class="btn btn-outline-success" (click)="login()">Sign In</button>
 </div>
-<ul *ngIf="userId" class="navbar-nav">
+<ul *ngIf="isLoggedIn" class="navbar-nav">
   <li class="nav-item dropdown" ngbDropdown>
     <a id="authNavLinks" class="nav-link" ngbDropdownToggle>
-      {{preferredUserName}}
+      {{username}}
     </a>
     <div ngbDropdownMenu aria-labelledby="authNavLinks">
       <a id="authNavLogout" class="dropdown-item" (click)="logout()" ngbDropdownItem>

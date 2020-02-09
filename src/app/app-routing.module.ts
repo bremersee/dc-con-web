@@ -7,22 +7,85 @@ import {AddUserComponent} from './users/add-user/add-user.component';
 import {GroupComponent} from './group/group.component';
 import {AddGroupComponent} from './groups/add-group/add-group.component';
 import {WelcomeComponent} from './welcome/welcome.component';
-import {AdminUserGuardService} from './shared/security/admin-user-guard.service';
-import {LocalUserGuardService} from './shared/security/local-user-guard.service';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {DnsNodesComponent} from './name-server/dns-nodes/dns-nodes.component';
+import {environment} from '../environments/environment';
+import {AppAuthGuard} from './app.authguard';
 
 const routes: Routes = [
-  {path: 'users', component: UsersComponent, canActivate: [AdminUserGuardService]},
-  {path: 'add-user', component: AddUserComponent, canActivate: [AdminUserGuardService]},
-  {path: 'users/:userName', component: UserComponent, canActivate: [AdminUserGuardService]},
-  {path: 'groups', component: GroupsComponent, canActivate: [AdminUserGuardService]},
-  {path: 'add-group', component: AddGroupComponent, canActivate: [AdminUserGuardService]},
-  {path: 'groups/:groupName', component: GroupComponent, canActivate: [AdminUserGuardService]},
-  {path: 'ns/nodes/:zone', component: DnsNodesComponent, canActivate: [AdminUserGuardService]},
-  {path: 'change-password', component: ChangePasswordComponent, canActivate: [LocalUserGuardService]},
-  {path: '', pathMatch: 'full', component: WelcomeComponent},
-  {path: '**', redirectTo: ''}
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'add-user',
+    component: AddUserComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'users/:userName',
+    component: UserComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'groups',
+    component: GroupsComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'add-group',
+    component: AddGroupComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'groups/:groupName',
+    component: GroupComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'ns/nodes/:zone',
+    component: DnsNodesComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.adminRoles
+    }
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: environment.localUserRoles
+    }
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    component: WelcomeComponent
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({

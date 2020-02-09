@@ -5,7 +5,6 @@ import {SnackbarService} from '../../shared/snackbar/snackbar.service';
 import {DomainGroup, DomainGroupService} from '../../shared/service/domain-group.service';
 import {of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {DomainUser} from '../../shared/model/domain-user';
 
 @Component({
   selector: 'app-add-group',

@@ -3,7 +3,6 @@ import {DomainGroup, DomainGroupService} from '../shared/service/domain-group.se
 import {Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
-import {AuthService} from '../shared/security/auth.service';
 import {environment} from '../../environments/environment';
 
 @Component({
@@ -23,7 +22,6 @@ export class GroupsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
     private groupService: DomainGroupService) {
   }
 
@@ -33,10 +31,6 @@ export class GroupsComponent implements OnInit {
       this.query = paramMap.get('q') || '';
       this.groups = this.groupService.getGroups(this.sortOrder, this.query);
     });
-  }
-
-  get isAdmin() {
-    return this.authService.hasAnyRole(environment.adminRoles);
   }
 
 }

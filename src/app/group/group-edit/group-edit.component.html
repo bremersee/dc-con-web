@@ -5,7 +5,7 @@
     <div>
       <small class="text-muted font-italic">
         Description
-        <span *ngIf="canEdit && descriptionMode === 'display'" class="pl-2">
+        <span *ngIf="descriptionMode === 'display'" class="pl-2">
           <a href="javascript:void(0)" (click)="displayEditDescription()">
             <fa-icon [icon]="editDescriptionIcon"></fa-icon>
           </a>
@@ -60,9 +60,9 @@
     </span>
     <label class="switch">
       <input *ngIf="member.isMember" (click)="toggleMember(member)"
-             type="checkbox" checked [disabled]="!canEdit"/>
+             type="checkbox" checked/>
       <input *ngIf="!member.isMember" (click)="toggleMember(member)"
-             type="checkbox" [disabled]="!canEdit"/>
+             type="checkbox"/>
       <span class="slider round"></span>
     </label>
   </li>
