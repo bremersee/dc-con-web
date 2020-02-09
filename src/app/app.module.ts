@@ -64,14 +64,14 @@ const keycloakService = new KeycloakService();
     DnsNodesComponent
   ],
   imports: [
-    KeycloakAngularModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
     AppRoutingModule,
+    KeycloakAngularModule,
+    NgbModule,
     FontAwesomeModule,
   ],
   providers: [
