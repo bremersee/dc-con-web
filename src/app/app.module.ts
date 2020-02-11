@@ -72,7 +72,7 @@ const keycloakService = new KeycloakService();
     AppRoutingModule,
     KeycloakAngularModule,
     NgbModule,
-    FontAwesomeModule,
+    FontAwesomeModule
   ],
   providers: [
     CookieService,
