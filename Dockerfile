@@ -5,7 +5,7 @@
 #############
 
 # base image
-FROM node:12.10.0 as build
+FROM node:13.10.1 as build
 
 # install chrome for protractor tests
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -21,7 +21,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install
-RUN npm install -g @angular/cli@8.3.6
+RUN npm install -g @angular/cli@8.3.25
 # RUN npm install -g angular-cli-ghpages
 
 # add app
@@ -32,14 +32,15 @@ COPY . /app
 # RUN ng e2e --port 4202
 
 # generate build
-RUN ng build --prod --baseHref /dc-con-web/ --output-path dist
+# RUN ng build --prod --baseHref /dc-con-web/ --output-path dist
+RUN ng build --prod --output-path dist
 
 ############
 ### prod ###
 ############
 
 # base image
-FROM nginx:1.16.0-alpine
+FROM nginx:1.17.9-alpine
 
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d
 

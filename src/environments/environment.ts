@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   env: 'dev',
   keycloakConfigLocation: '/assets/keycloak-dev.json',
+  silentCheckSsoLocation: '/silent-check-sso.html',
   retry: 2,
   dcConBaseUrl: 'https://ad.eixe.bremersee.org',
   localUserRoles: ['LOCAL_USER'],
