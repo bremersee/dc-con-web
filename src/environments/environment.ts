@@ -2,22 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import {AuthConfig} from 'angular-oauth2-oidc';
-
 export const environment = {
   production: false,
   env: 'dev',
+  keycloakConfigLocation: '/assets/keycloak-prod.json',
+  silentCheckSsoLocation: '/silent-check-sso.html',
+  keycloakLogoutLocation: '',
   retry: 2,
-  dcConBaseUrl: 'https://ad.eixe.bremersee.org',
+  dcConBaseUrl: 'https://api.bremersee.org/dc-con-app',
   localUserRoles: ['LOCAL_USER'],
   adminRoles: ['ADMIN', 'DC_CON_ADMIN'],
-  tokenConfig: {
-    allowedUrls: ['https://ad.eixe.bremersee.org/api'],
-    issuer: 'https://openid.dev.bremersee.org/auth/realms/omnia',
-    clientId: 'omnia',
-    scope: 'openid profile email',
-    path: ''
-  },
   avatarDefault: 'ROBOHASH'
 };
 

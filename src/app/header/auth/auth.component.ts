@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../shared/security/auth.service';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
   selector: 'app-auth',
@@ -8,25 +8,25 @@ import {AuthService} from '../../shared/security/auth.service';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private oauthService: AuthService) {
+  isLoggedIn = false;
+
+  constructor(private keycloakService: KeycloakService) {
   }
 
   ngOnInit() {
+    this.keycloakService.isLoggedIn().then(r => this.isLoggedIn = r);
   }
 
-  login() {
-    this.oauthService.login('/users');
+  async login() {
+    await this.keycloakService.login();
   }
 
-  logout() {
-    this.oauthService.logout();
+  async logout() {
+    await this.keycloakService.logout();
   }
 
-  get userId() {
-    return this.oauthService.userId;
+  get username() {
+    return this.keycloakService.getUsername();
   }
 
-  get preferredUserName() {
-    return this.oauthService.preferredUserName;
-  }
 }

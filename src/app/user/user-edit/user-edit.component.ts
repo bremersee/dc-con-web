@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DomainUser} from '../../shared/model/domain-user';
 import {DomainUserService} from '../../shared/service/domain-user.service';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,13 +16,10 @@ export class UserEditComponent implements OnInit {
   @Output()
   updatedUser = new EventEmitter<DomainUser>();
 
-  // editUser: DomainUser;
-
   constructor(private router: Router, private userService: DomainUserService) {
   }
 
   ngOnInit() {
-    // this.editUser = {...this.user}; // Spread operator, requires ECMAScript6
   }
 
   get displayName() {

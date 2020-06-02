@@ -5,11 +5,11 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {DomainService} from '../../shared/service/domain.service';
 import {PasswordComplexity, PasswordInformation} from '../../shared/model/password-information';
-import {AuthService} from '../../shared/security/auth.service';
-import {environment} from '../../../environments/environment';
 import {FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {ApiException} from '../../error/api-exception';
 import {SnackbarService} from '../../shared/snackbar/snackbar.service';
+import {KeycloakService} from 'keycloak-angular';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-password',
@@ -35,7 +35,7 @@ export class UserPasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private keycloakService: KeycloakService,
     private snackbar: SnackbarService,
     private userService: DomainUserService,
     private domainService: DomainService) {
@@ -60,8 +60,16 @@ export class UserPasswordComponent implements OnInit {
     return DomainUserService.avatarUrl(user, size);
   }
 
-  get isAdmin(): boolean {
-    return this.authService.isAdmin;
+  get isAdmin(): boolean { // TODO onInit
+    const roles = this.keycloakService.getUserRoles(true);
+    if (roles && roles.length > 0) {
+      for (const requiredRole of environment.adminRoles) {
+        if (roles.indexOf(requiredRole) > -1) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   buildForm(pwdInfo: PasswordInformation) {

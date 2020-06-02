@@ -5,7 +5,6 @@ import {DomainGroupService} from '../../shared/service/domain-group.service';
 import {Subject, Subscription} from 'rxjs';
 import {DomainGroupMember} from '../../shared/model/domain-group-member';
 import {DomainUserService} from '../../shared/service/domain-user.service';
-import {AuthService} from '../../shared/security/auth.service';
 import {environment} from '../../../environments/environment';
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
 
@@ -34,7 +33,6 @@ export class GroupEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
     private groupService: DomainGroupService,
     private userService: DomainUserService) {
   }
@@ -54,10 +52,6 @@ export class GroupEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.membersSubscription.unsubscribe();
-  }
-
-  get canEdit(): boolean {
-    return this.authService.hasAnyRole(environment.adminRoles);
   }
 
   get displayDescription(): boolean {
@@ -113,11 +107,7 @@ export class GroupEditComponent implements OnInit, OnDestroy {
     if (group.description === undefined || group.description === null) {
       group.description = '';
     }
-    if (this.canEdit) {
-      this.descriptionMode = group.description.length > 0 ? 'display' : 'add';
-    } else {
-      this.descriptionMode = group.description.length > 0 ? 'display' : 'hide';
-    }
+    this.descriptionMode = group.description.length > 0 ? 'display' : 'add';
   }
 
 }
