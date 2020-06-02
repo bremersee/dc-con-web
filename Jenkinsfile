@@ -29,7 +29,7 @@ pipeline {
       }
       steps {
         script {
-          DOCKER_IMAGE_SNAPSHOT = docker.build("${DOCKER_REGISTRY}:${DEV_TAG}", "--build-arg NG_CONFIG=dev", "--build-arg SERVICE_NAME=${SERVICE_NAME}")
+          DOCKER_IMAGE_SNAPSHOT = docker.build("$DOCKER_REGISTRY:$DEV_TAG", "--build-arg NG_CONFIG=dev", "--build-arg SERVICE_NAME=$SERVICE_NAME")
         }
       }
     }
