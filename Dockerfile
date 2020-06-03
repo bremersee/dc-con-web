@@ -32,11 +32,12 @@ COPY . /app
 # RUN ng e2e --port 4202
 
 # generate build
-RUN ng build --configuration=${NG_CONFG} --baseHref /${APP_NAME}/ --output-path dist
+ARG NG_CONFIG
+ARG APP_NAME
+RUN ng build --configuration=$NG_CONFG --baseHref /$APP_NAME/ --output-path dist
 
 # set the application name that is read by the scs image
 RUN mkdir /app/tmp
-RUN echo "${APP_NAME}" > /app/tmp/app.name.conf
 
 ############
 ### prod ###
@@ -47,4 +48,4 @@ FROM bremersee/scs:snapshot
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /opt/content
-COPY --from=build /app/tmp/app.name.conf /opt/app.name.conf
+RUN echo $APP_NAME > /opt/app.name.conf
