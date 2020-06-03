@@ -34,6 +34,10 @@ COPY . /app
 # generate build
 RUN ng build --configuration=${NG_CONFG} --baseHref /${APP_NAME}/ --output-path dist
 
+# set the application name that is read by the scs image
+RUN mkdir /app/tmp
+RUN echo "${APP_NAME}" > /app/tmp/app.name.conf
+
 ############
 ### prod ###
 ############
@@ -43,6 +47,4 @@ FROM bremersee/scs:snapshot
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /opt/content
-
-# set the application name that is read by the scs image
-RUN echo "${APP_NAME}" > /opt/app.name.conf
+COPY --from=build /app/tmp/app.name.conf /opt/app.name.conf
