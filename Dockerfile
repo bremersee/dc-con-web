@@ -44,7 +44,7 @@ FROM bremersee/scs:snapshot
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /opt/content
 
-ENV APPLICATION_NAME "${APP_NAME}"
-ENV SCS_PATTERN "/${APP_NAME}/**"
-ENV SCS_CONTENT_LOCATION "/opt/content/"
-ENV SCS_INDEX "index.html"
+ENV APPLICATION_NAME ${APP_NAME}
+ENV SCS_PATTERN /${APP_NAME}/**
+ENV SCS_CONTENT_LOCATION /opt/content/
+ENV SCS_INDEX index.html
