@@ -6,6 +6,7 @@ pipeline {
     DEV_TAG = 'snapshot'
     PROD_TAG = 'latest'
     DOCKER_CREDENTIALS = 'dockerhub'
+    DOCKER_CREDS = credentials('dockerhub')
     DOCKER_IMAGE_WITH_BUILD_NUMBER = ''
     DOCKER_IMAGE_SNAPSHOT = ''
     DOCKER_IMAGE_LATEST = ''
@@ -17,42 +18,7 @@ pipeline {
     PROD_DEPLOY = true
   }
   stages {
-    stage('Build docker image snapshot') {
-      agent {
-        label 'maven'
-      }
-      when {
-        allOf {
-          branch 'develop'
-          environment name: 'DEV_BUILD', value: 'true'
-        }
-      }
-      steps {
-        node {
-          DOCKER_IMAGE_SNAPSHOT = docker.build "${DOCKER_REGISTRY}:${DEV_TAG}" "--build-arg NG_CONFIG=dev" "--build-arg SERVICE_NAME=${SERVICE_NAME}"
-        }
-      }
-    }
-    stage('Push docker image snapshot') {
-      agent {
-        label 'maven'
-      }
-      when {
-        allOf {
-          branch 'develop'
-          environment name: 'DEV_BUILD', value: 'true'
-          environment name: 'DEV_PUSH', value: 'true'
-        }
-      }
-      steps {
-        script {
-          docker.withRegistry( '', DOCKER_CREDENTIALS ) {
-            DOCKER_IMAGE_SNAPSHOT.push();
-          }
-        }
-      }
-    }
-    stage('Remove docker image snapshot') {
+    stage('Build docker image snapshot and push') {
       agent {
         label 'maven'
       }
@@ -64,8 +30,12 @@ pipeline {
       }
       steps {
         script {
-          // sh "docker rmi $DOCKER_REGISTRY:$DEV_TAG"
-          sh "docker system prune -a -f"
+          sh '''
+            docker build -f Dockerfile --build-arg NG_CONFIG=dev --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${DOCKER_REGISTRY}:${DEV_TAG}
+            docker login -u="${DOCKER_CREDS_USR}" -p="${DOCKER_CREDS_PSW}"
+            docker push ${DOCKER_REGISTRY}:${DEV_TAG}
+            docker system prune -a -f
+          '''
         }
       }
     }
