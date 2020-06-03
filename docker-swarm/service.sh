@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 docker service create \
   --replicas $3 \
-  --name dc-con \
+  --name dc-con-web \
   --network proxy \
   --secret config-server-client-user \
   --secret config-server-client-user-password \
