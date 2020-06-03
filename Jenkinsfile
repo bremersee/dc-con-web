@@ -1,24 +1,19 @@
 pipeline {
   agent none
   environment {
-    SERVICE_NAME = 'dc-con'
-    DOCKER_REGISTRY = 'bremersee/dc-con'
+    APP_NAME = 'dc-con'
+    SERVICE_NAME = 'dc-con-web'
+    DOCKER_REGISTRY = 'bremersee/dc-con-web'
     DEV_TAG = 'snapshot'
     PROD_TAG = 'latest'
-    DOCKER_CREDENTIALS = 'dockerhub'
-    DOCKER_CREDS = credentials('dockerhub')
-    DOCKER_IMAGE_WITH_BUILD_NUMBER = ''
-    DOCKER_IMAGE_SNAPSHOT = ''
-    DOCKER_IMAGE_LATEST = ''
+    DOCKER_CREDENTIALS = credentials('dockerhub')
     DEV_BUILD = true
-    DEV_PUSH = true
     DEV_DEPLOY = true
     PROD_BUILD = true
-    PROD_PUSH = true
     PROD_DEPLOY = true
   }
   stages {
-    stage('Build docker image snapshot and push') {
+    stage('Build and push docker image snapshot') {
       agent {
         label 'maven'
       }
@@ -31,8 +26,8 @@ pipeline {
       steps {
         script {
           sh '''
-            docker build -f Dockerfile --build-arg NG_CONFIG=dev --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${DOCKER_REGISTRY}:${DEV_TAG} .
-            docker login -u="${DOCKER_CREDS_USR}" -p="${DOCKER_CREDS_PSW}"
+            docker build -f Dockerfile --build-arg NG_CONFIG=dev --build-arg APP_NAME=${APP_NAME} -t ${DOCKER_REGISTRY}:${DEV_TAG} .
+            docker login -u="${DOCKER_CREDENTIALS_USR}" -p="${DOCKER_CREDENTIALS_PSW}"
             docker push ${DOCKER_REGISTRY}:${DEV_TAG}
             docker system prune -a -f
           '''

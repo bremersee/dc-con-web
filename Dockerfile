@@ -32,7 +32,7 @@ COPY . /app
 # RUN ng e2e --port 4202
 
 # generate build
-RUN ng build --configuration=${NG_CONFG} --baseHref /${SERVICE_NAME}/ --output-path dist
+RUN ng build --configuration=${NG_CONFG} --baseHref /${APP_NAME}/ --output-path dist
 
 ############
 ### prod ###
@@ -44,7 +44,7 @@ FROM bremersee/scs:snapshot
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /opt/content
 
-ENV APPLICATION_NAME "${SERVICE_NAME}"
-ENV SCS_PATTERN "/${SERVICE_NAME}/**"
+ENV APPLICATION_NAME "${APP_NAME}"
+ENV SCS_PATTERN "/${APP_NAME}/**"
 ENV SCS_CONTENT_LOCATION "/opt/content/"
 ENV SCS_INDEX "index.html"
