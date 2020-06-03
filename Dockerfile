@@ -45,5 +45,5 @@ FROM bremersee/scs:snapshot
 COPY --from=build /app/dist /opt/content
 
 RUN touch /opt/app.conf
-RUN echo "export APPLICATION_NAME=${APP_NAME}" >> /opt/app.conf
-RUN echo "export SCS_PATTERN=/${APP_NAME}/**" >> /opt/app.conf
+RUN echo "APPLICATION_NAME=${APP_NAME}" >> /opt/app.conf
+RUN echo "SCS_PATTERN=/${APP_NAME}/**" >> /opt/app.conf
