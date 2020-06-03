@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
           sh '''
-            docker build -f Dockerfile --build-arg NG_CONFIG=dev --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${DOCKER_REGISTRY}:${DEV_TAG}
+            docker build -f Dockerfile --build-arg NG_CONFIG=dev --build-arg SERVICE_NAME=${SERVICE_NAME} -t ${DOCKER_REGISTRY}:${DEV_TAG} .
             docker login -u="${DOCKER_CREDS_USR}" -p="${DOCKER_CREDS_PSW}"
             docker push ${DOCKER_REGISTRY}:${DEV_TAG}
             docker system prune -a -f
