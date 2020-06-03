@@ -44,6 +44,5 @@ FROM bremersee/scs:snapshot
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /opt/content
 
-RUN touch /opt/app.conf
-RUN echo "APPLICATION_NAME=${APP_NAME}" >> /opt/app.conf
-RUN echo "SCS_PATTERN=/${APP_NAME}/**" >> /opt/app.conf
+# set the application name that is read by the scs image
+RUN echo "${APP_NAME}" > /opt/app.name.conf
