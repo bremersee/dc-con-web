@@ -9,7 +9,7 @@ pipeline {
     DOCKER_CREDENTIALS = credentials('dockerhub')
     DEV_BUILD = true
     DEV_DEPLOY = true
-    PROD_BUILD = true
+    PROD_BUILD = false
     PROD_DEPLOY = true
   }
   options {
