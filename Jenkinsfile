@@ -29,7 +29,7 @@ pipeline {
       steps {
         script {
           sh '''
-            docker build -f Dockerfile --build-arg NG_CONFIG=dev --build-arg NG_BASE_HREF="/${APP_NAME}/" --build-arg APP_NAME="${APP_NAME}" --build-arg APP_PREFIX="/${APP_NAME}/**" -t ${DOCKER_REGISTRY}:${DEV_TAG} .
+            docker build -f Dockerfile --build-arg NG_CONFIG="dev" --build-arg NG_BASE_HREF="/${APP_NAME}/" --build-arg APP_NAME="${APP_NAME}" --build-arg APP_PREFIX="/${APP_NAME}/**" -t ${DOCKER_REGISTRY}:${DEV_TAG} .
             docker login -u="${DOCKER_CREDENTIALS_USR}" -p="${DOCKER_CREDENTIALS_PSW}"
             docker push ${DOCKER_REGISTRY}:${DEV_TAG}
             docker system prune -a -f
