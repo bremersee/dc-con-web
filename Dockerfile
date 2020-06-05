@@ -19,14 +19,15 @@ WORKDIR /app
 #ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-COPY package.json /app/package.json
-RUN npm install
-RUN npm install -g @angular/cli@9.1.7
+#COPY package.json /app/package.json
+#RUN npm install
+#RUN npm install -g @angular/cli@9.1.7
 # RUN npm install -g angular-cli-ghpages
 
 # add app
 COPY . /app
 
+RUN npm install
 # run tests
 #RUN ng test --watch=false
 #RUN ng e2e --port 4202
