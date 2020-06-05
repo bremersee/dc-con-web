@@ -47,5 +47,5 @@ FROM bremersee/scs:snapshot
 COPY --from=build /app/dist /opt/content
 ARG APP_NAME="app"
 ARG APP_PREFIX="/**"
-RUN echo $APP_NAME > /opt/app.name.conf
+RUN echo "$APP_NAME" > /opt/app.name.conf
 RUN echo "$APP_PREFIX" > /opt/app.prefix.conf
