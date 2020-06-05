@@ -9,6 +9,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   }
 
   handleError(error) {
+    console.error('An error occurred: {}', error);
     let errorMessage = error.message;
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;

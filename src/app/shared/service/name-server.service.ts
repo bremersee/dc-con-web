@@ -7,6 +7,7 @@ import {CustomHttpUrlEncodingCodec} from '../encoder';
 import {DhcpLease} from '../model/dhcp-lease';
 import {DnsNode} from '../model/dns-node';
 import {DnsZone} from '../model/dns-zone';
+import {KeycloakService} from 'keycloak-angular';
 
 export {DhcpLease} from '../model/dhcp-lease';
 export {DnsNode} from '../model/dns-node';
@@ -244,6 +245,7 @@ export class NameServerService {
    * @param isReportProgress flag to report request and response progress.
    */
   getDnsZones(observePart?: 'body', isReportProgress?: boolean): Observable<Array<DnsZone>> {
+    ks: KeycloakService;
     const httpHeaders = new HttpHeaders()
     .set('Accept', 'application/json');
     return this.http.get<Array<DnsZone>>(`${this.baseUrl}/api/dns/zones`,
@@ -321,6 +323,7 @@ export class NameServerService {
   }
 
   private handleError(error: HttpErrorResponse) {
+    console.log('Unexpected response:', error);
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
