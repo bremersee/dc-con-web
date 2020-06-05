@@ -36,9 +36,9 @@ ARG NG_CONFIG=""
 ARG NG_BASE_HREF=""
 RUN ng build --configuration=$NG_CONFIG --baseHref $NG_BASE_HREF --output-path dist
 
-############
-### prod ###
-############
+#############
+### serve ###
+#############
 
 # base image
 FROM bremersee/scs:snapshot
