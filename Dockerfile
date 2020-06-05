@@ -32,8 +32,8 @@ COPY . /app
 # RUN ng e2e --port 4202
 
 # generate build
-ARG NG_CONFIG
-ARG NG_BASE_HREF
+ARG NG_CONFIG=dev
+ARG NG_BASE_HREF=/
 RUN ng build --configuration=$NG_CONFIG --baseHref $NG_BASE_HREF --output-path dist
 
 #############
