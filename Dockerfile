@@ -34,8 +34,7 @@ COPY . /app
 # generate build
 ARG NG_CONFIG=""
 ARG NG_BASE_HREF=""
-#RUN ng build --configuration=$NG_CONFIG --baseHref $NG_BASE_HREF --output-path dist
-RUN ng build --configuration=dev --baseHref /dc-con/ --output-path dist
+RUN ng build --configuration=$NG_CONFIG --baseHref $NG_BASE_HREF --output-path dist
 
 #############
 ### serve ###
