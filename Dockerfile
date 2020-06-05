@@ -8,9 +8,9 @@
 FROM node:12.11.1 as build
 
 # install chrome for protractor tests
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get update && apt-get install -yq google-chrome-stable
+#RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+#RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+#RUN apt-get update && apt-get install -yq google-chrome-stable
 
 # set working directory
 WORKDIR /app
@@ -28,8 +28,8 @@ RUN npm install -g @angular/cli@9.1.7
 COPY . /app
 
 # run tests
-# RUN ng test --watch=false
-# RUN ng e2e --port 4202
+#RUN ng test --watch=false
+#RUN ng e2e --port 4202
 
 # generate build
 ARG NG_CONFIG=""
