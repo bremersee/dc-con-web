@@ -42,7 +42,7 @@ RUN ng build --configuration=$NG_CONFIG --baseHref $NG_BASE_HREF --output-path d
 #############
 
 # base image
-FROM bremersee/scs:snapshot
+FROM bremersee/scs:latest
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /opt/content
